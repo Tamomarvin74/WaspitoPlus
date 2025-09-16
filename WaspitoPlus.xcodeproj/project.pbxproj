@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		CED7D4442E796DF8009C2F49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CED7D4292E796DF5009C2F49 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CED7D4302E796DF5009C2F49;
+			remoteInfo = WaspitoPlus;
+		};
+		CED7D44E2E796DF8009C2F49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CED7D4292E796DF5009C2F49 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CED7D4302E796DF5009C2F49;
+			remoteInfo = WaspitoPlus;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaspitoPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaspitoPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED7D44D2E796DF8009C2F49 /* WaspitoPlusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaspitoPlusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CED7D4332E796DF5009C2F49 /* WaspitoPlus */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WaspitoPlus;
+			sourceTree = "<group>";
+		};
+		CED7D4462E796DF8009C2F49 /* WaspitoPlusTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WaspitoPlusTests;
+			sourceTree = "<group>";
+		};
+		CED7D4502E796DF8009C2F49 /* WaspitoPlusUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WaspitoPlusUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CED7D42E2E796DF5009C2F49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D4402E796DF8009C2F49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D44A2E796DF8009C2F49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CED7D4282E796DF5009C2F49 = {
+			isa = PBXGroup;
+			children = (
+				CED7D4332E796DF5009C2F49 /* WaspitoPlus */,
+				CED7D4462E796DF8009C2F49 /* WaspitoPlusTests */,
+				CED7D4502E796DF8009C2F49 /* WaspitoPlusUITests */,
+				CED7D4322E796DF5009C2F49 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CED7D4322E796DF5009C2F49 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */,
+				CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */,
+				CED7D44D2E796DF8009C2F49 /* WaspitoPlusUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CED7D4302E796DF5009C2F49 /* WaspitoPlus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CED7D4572E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlus" */;
+			buildPhases = (
+				CED7D42D2E796DF5009C2F49 /* Sources */,
+				CED7D42E2E796DF5009C2F49 /* Frameworks */,
+				CED7D42F2E796DF5009C2F49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CED7D4332E796DF5009C2F49 /* WaspitoPlus */,
+			);
+			name = WaspitoPlus;
+			packageProductDependencies = (
+			);
+			productName = WaspitoPlus;
+			productReference = CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CED7D4422E796DF8009C2F49 /* WaspitoPlusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CED7D45A2E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlusTests" */;
+			buildPhases = (
+				CED7D43F2E796DF8009C2F49 /* Sources */,
+				CED7D4402E796DF8009C2F49 /* Frameworks */,
+				CED7D4412E796DF8009C2F49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CED7D4452E796DF8009C2F49 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CED7D4462E796DF8009C2F49 /* WaspitoPlusTests */,
+			);
+			name = WaspitoPlusTests;
+			packageProductDependencies = (
+			);
+			productName = WaspitoPlusTests;
+			productReference = CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CED7D44C2E796DF8009C2F49 /* WaspitoPlusUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CED7D45D2E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlusUITests" */;
+			buildPhases = (
+				CED7D4492E796DF8009C2F49 /* Sources */,
+				CED7D44A2E796DF8009C2F49 /* Frameworks */,
+				CED7D44B2E796DF8009C2F49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CED7D44F2E796DF8009C2F49 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CED7D4502E796DF8009C2F49 /* WaspitoPlusUITests */,
+			);
+			name = WaspitoPlusUITests;
+			packageProductDependencies = (
+			);
+			productName = WaspitoPlusUITests;
+			productReference = CED7D44D2E796DF8009C2F49 /* WaspitoPlusUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CED7D4292E796DF5009C2F49 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					CED7D4302E796DF5009C2F49 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					CED7D4422E796DF8009C2F49 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = CED7D4302E796DF5009C2F49;
+					};
+					CED7D44C2E796DF8009C2F49 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = CED7D4302E796DF5009C2F49;
+					};
+				};
+			};
+			buildConfigurationList = CED7D42C2E796DF5009C2F49 /* Build configuration list for PBXProject "WaspitoPlus" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CED7D4282E796DF5009C2F49;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CED7D4322E796DF5009C2F49 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CED7D4302E796DF5009C2F49 /* WaspitoPlus */,
+				CED7D4422E796DF8009C2F49 /* WaspitoPlusTests */,
+				CED7D44C2E796DF8009C2F49 /* WaspitoPlusUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CED7D42F2E796DF5009C2F49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D4412E796DF8009C2F49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D44B2E796DF8009C2F49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CED7D42D2E796DF5009C2F49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D43F2E796DF8009C2F49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CED7D4492E796DF8009C2F49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CED7D4452E796DF8009C2F49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CED7D4302E796DF5009C2F49 /* WaspitoPlus */;
+			targetProxy = CED7D4442E796DF8009C2F49 /* PBXContainerItemProxy */;
+		};
+		CED7D44F2E796DF8009C2F49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CED7D4302E796DF5009C2F49 /* WaspitoPlus */;
+			targetProxy = CED7D44E2E796DF8009C2F49 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CED7D4552E796DF8009C2F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CED7D4562E796DF8009C2F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CED7D4582E796DF8009C2F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlus";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CED7D4592E796DF8009C2F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlus";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CED7D45B2E796DF8009C2F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlusTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WaspitoPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WaspitoPlus";
+			};
+			name = Debug;
+		};
+		CED7D45C2E796DF8009C2F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlusTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WaspitoPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WaspitoPlus";
+			};
+			name = Release;
+		};
+		CED7D45E2E796DF8009C2F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlusUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WaspitoPlus;
+			};
+			name = Debug;
+		};
+		CED7D45F2E796DF8009C2F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com-Tamo-Marvin.WaspitoPlusUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WaspitoPlus;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CED7D42C2E796DF5009C2F49 /* Build configuration list for PBXProject "WaspitoPlus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED7D4552E796DF8009C2F49 /* Debug */,
+				CED7D4562E796DF8009C2F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CED7D4572E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED7D4582E796DF8009C2F49 /* Debug */,
+				CED7D4592E796DF8009C2F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CED7D45A2E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED7D45B2E796DF8009C2F49 /* Debug */,
+				CED7D45C2E796DF8009C2F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CED7D45D2E796DF8009C2F49 /* Build configuration list for PBXNativeTarget "WaspitoPlusUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CED7D45E2E796DF8009C2F49 /* Debug */,
+				CED7D45F2E796DF8009C2F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CED7D4292E796DF5009C2F49 /* Project object */;
+}
