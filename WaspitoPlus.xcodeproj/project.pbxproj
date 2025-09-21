@@ -6,6 +6,51 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CE4082852E7F9794009A7932 /*  DoctorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082842E7F9794009A7932 /*  DoctorManager.swift */; };
+		CE6EE0642E7D0917004A386D /* SymptomEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0632E7D0917004A386D /* SymptomEntry.swift */; };
+		CE6EE0662E7D0B38004A386D /*  DoctorNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */; };
+		CE9ED8962E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */; };
+		CE9ED8972E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */; };
+		CE9ED8982E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */; };
+		CE9ED8B62E7C43B60077F77D /*  FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */; };
+		CE9ED8B72E7C43B60077F77D /*  FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */; };
+		CE9ED8B82E7C43B60077F77D /*  FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */; };
+		CEB95AE02E7D11860064D61B /*  Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB95ADF2E7D11860064D61B /*  Notification+Extensions.swift */; };
+		CED7D43E2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CED7D43C2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld */; };
+		CED7D4622E796E56009C2F49 /*  User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4612E796E56009C2F49 /*  User.swift */; };
+		CED7D4662E796F16009C2F49 /*   LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4652E796F16009C2F49 /*   LocalDataService.swift */; };
+		CED7D4682E796F5B009C2F49 /*   AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4672E796F5B009C2F49 /*   AuthService.swift */; };
+		CED7D46A2E796F83009C2F49 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4692E796F83009C2F49 /* NetworkService.swift */; };
+		CED7D46D2E796FCF009C2F49 /*   AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D46C2E796FCF009C2F49 /*   AuthViewModel.swift */; };
+		CED7D46F2E796FEF009C2F49 /*   HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D46E2E796FEF009C2F49 /*   HomeViewModel.swift */; };
+		CED7D4712E79702B009C2F49 /*   SymptomCheckerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4702E79702B009C2F49 /*   SymptomCheckerViewModel.swift */; };
+		CED7D4742E797079009C2F49 /*  LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4732E797079009C2F49 /*  LoginView.swift */; };
+		CED7D4762E7970FF009C2F49 /*   HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4752E7970FF009C2F49 /*   HomeView.swift */; };
+		CED7D4782E797130009C2F49 /*   SymptomCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4772E797130009C2F49 /*   SymptomCheckerView.swift */; };
+		CED7D47A2E79718B009C2F49 /*   OfflineEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4792E79718B009C2F49 /*   OfflineEntriesView.swift */; };
+		CED7D47C2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED7D47B2E797B2D009C2F49 /* GoogleService-Info.plist */; };
+		CED7D47D2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED7D47B2E797B2D009C2F49 /* GoogleService-Info.plist */; };
+		CED7D47E2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CED7D47B2E797B2D009C2F49 /* GoogleService-Info.plist */; };
+		CED7D4822E797E35009C2F49 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CED7D4812E797E35009C2F49 /* FirebaseAuth */; };
+		CED7D4842E797E42009C2F49 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = CED7D4832E797E42009C2F49 /* FirebaseCore */; settings = {ATTRIBUTES = (Required, ); }; };
+		CED7D4862E797E62009C2F49 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CED7D4852E797E62009C2F49 /* FirebaseFirestore */; };
+		CED7D48B2E79A598009C2F49 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D48A2E79A598009C2F49 /* LocalizationManager.swift */; };
+		CED7D4A82E7A61F9009C2F49 /*  WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4A72E7A61F9009C2F49 /*  WelcomeView.swift */; };
+		CED7D4AA2E7AA927009C2F49 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4A92E7AA927009C2F49 /* NotificationService.swift */; };
+		CED7D4AC2E7AB8C2009C2F49 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4AB2E7AB8C2009C2F49 /* LocationService.swift */; };
+		CED7D4AE2E7AC8DC009C2F49 /*  MapMeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4AD2E7AC8DC009C2F49 /*  MapMeetingView.swift */; };
+		CED7D4B02E7ACA96009C2F49 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4AF2E7ACA96009C2F49 /* NetworkMonitor.swift */; };
+		CEE2ED6D2E7D737D004078D6 /*  Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2ED6C2E7D737D004078D6 /*  Doctor.swift */; };
+		CEE2ED6F2E7D82C0004078D6 /*  HomePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2ED6E2E7D82C0004078D6 /*  HomePost.swift */; };
+		CEEFCDDC2E7C681200DF93F3 /*  ConsultDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFCDDB2E7C681200DF93F3 /*  ConsultDoctorView.swift */; };
+		CEEFCDDE2E7CCBDC00DF93F3 /*  NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFCDDD2E7CCBDC00DF93F3 /*  NotificationManager.swift */; };
+		CEF114352E7BBC310013CB41 /*  EditablePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF114342E7BBC310013CB41 /*  EditablePostView.swift */; };
+		CEF114392E7BC1540013CB41 /*  PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF114382E7BC1540013CB41 /*  PersistenceController.swift */; };
+		CEF1143D2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1143C2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift */; };
+		CEF2F2E22E7C521900BA75AB /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2F2E12E7C521900BA75AB /* Post.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		CED7D4442E796DF8009C2F49 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +69,60 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE4082842E7F9794009A7932 /*  DoctorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorManager.swift"; sourceTree = "<group>"; };
+		CE6EE0632E7D0917004A386D /* SymptomEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomEntry.swift; sourceTree = "<group>"; };
+		CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorNotificationManager.swift"; sourceTree = "<group>"; };
+		CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SymptomEntryModel.swift"; sourceTree = "<group>"; };
+		CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " FeedViewModel.swift"; sourceTree = "<group>"; };
+		CEB95ADF2E7D11860064D61B /*  Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " Notification+Extensions.swift"; sourceTree = "<group>"; };
 		CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaspitoPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED7D43D2E796DF7009C2F49 /* WaspitoPlus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WaspitoPlus.xcdatamodel; sourceTree = "<group>"; };
 		CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaspitoPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED7D44D2E796DF8009C2F49 /* WaspitoPlusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaspitoPlusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED7D4612E796E56009C2F49 /*  User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " User.swift"; sourceTree = "<group>"; };
+		CED7D4652E796F16009C2F49 /*   LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  LocalDataService.swift"; sourceTree = "<group>"; };
+		CED7D4672E796F5B009C2F49 /*   AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  AuthService.swift"; sourceTree = "<group>"; };
+		CED7D4692E796F83009C2F49 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CED7D46C2E796FCF009C2F49 /*   AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  AuthViewModel.swift"; sourceTree = "<group>"; };
+		CED7D46E2E796FEF009C2F49 /*   HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  HomeViewModel.swift"; sourceTree = "<group>"; };
+		CED7D4702E79702B009C2F49 /*   SymptomCheckerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  SymptomCheckerViewModel.swift"; sourceTree = "<group>"; };
+		CED7D4732E797079009C2F49 /*  LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " LoginView.swift"; sourceTree = "<group>"; };
+		CED7D4752E7970FF009C2F49 /*   HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  HomeView.swift"; sourceTree = "<group>"; };
+		CED7D4772E797130009C2F49 /*   SymptomCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  SymptomCheckerView.swift"; sourceTree = "<group>"; };
+		CED7D4792E79718B009C2F49 /*   OfflineEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "  OfflineEntriesView.swift"; sourceTree = "<group>"; };
+		CED7D47B2E797B2D009C2F49 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CED7D48A2E79A598009C2F49 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		CED7D4A72E7A61F9009C2F49 /*  WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " WelcomeView.swift"; sourceTree = "<group>"; };
+		CED7D4A92E7AA927009C2F49 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		CED7D4AB2E7AB8C2009C2F49 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		CED7D4AD2E7AC8DC009C2F49 /*  MapMeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MapMeetingView.swift"; sourceTree = "<group>"; };
+		CED7D4AF2E7ACA96009C2F49 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		CEE2ED6C2E7D737D004078D6 /*  Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " Doctor.swift"; sourceTree = "<group>"; };
+		CEE2ED6E2E7D82C0004078D6 /*  HomePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " HomePost.swift"; sourceTree = "<group>"; };
+		CEEFCDDB2E7C681200DF93F3 /*  ConsultDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ConsultDoctorView.swift"; sourceTree = "<group>"; };
+		CEEFCDDD2E7CCBDC00DF93F3 /*  NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " NotificationManager.swift"; sourceTree = "<group>"; };
+		CEF114342E7BBC310013CB41 /*  EditablePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " EditablePostView.swift"; sourceTree = "<group>"; };
+		CEF114382E7BC1540013CB41 /*  PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " PersistenceController.swift"; sourceTree = "<group>"; };
+		CEF1143C2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " OfflineEntriesViewModel.swift"; sourceTree = "<group>"; };
+		CEF2F2E12E7C521900BA75AB /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CED7D4882E798FD2009C2F49 /* Exceptions for "WaspitoPlus" folder in "WaspitoPlus" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CED7D4302E796DF5009C2F49 /* WaspitoPlus */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CED7D4332E796DF5009C2F49 /* WaspitoPlus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CED7D4882E798FD2009C2F49 /* Exceptions for "WaspitoPlus" folder in "WaspitoPlus" target */,
+			);
 			path = WaspitoPlus;
 			sourceTree = "<group>";
 		};
@@ -52,6 +143,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED7D4842E797E42009C2F49 /* FirebaseCore in Frameworks */,
+				CED7D4822E797E35009C2F49 /* FirebaseAuth in Frameworks */,
+				CED7D4862E797E62009C2F49 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,13 +166,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEB95ADE2E7D11750064D61B /*  Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CEB95ADF2E7D11860064D61B /*  Notification+Extensions.swift */,
+			);
+			path = " Helpers";
+			sourceTree = "<group>";
+		};
 		CED7D4282E796DF5009C2F49 = {
 			isa = PBXGroup;
 			children = (
+				CEB95ADE2E7D11750064D61B /*  Helpers */,
+				CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */,
+				CED7D4892E79A57C009C2F49 /*  Managers */,
+				CED7D43C2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld */,
+				CED7D4722E79703F009C2F49 /*  Views  */,
+				CED7D46B2E796F9C009C2F49 /*  ViewModels  */,
+				CED7D4642E796E94009C2F49 /*  Services */,
+				CED7D4632E796E75009C2F49 /*  Resources */,
+				CED7D4602E796E30009C2F49 /*  Models  */,
 				CED7D4332E796DF5009C2F49 /* WaspitoPlus */,
 				CED7D4462E796DF8009C2F49 /* WaspitoPlusTests */,
 				CED7D4502E796DF8009C2F49 /* WaspitoPlusUITests */,
 				CED7D4322E796DF5009C2F49 /* Products */,
+				CED7D47B2E797B2D009C2F49 /* GoogleService-Info.plist */,
+				CED7D4802E797E35009C2F49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +203,84 @@
 				CED7D44D2E796DF8009C2F49 /* WaspitoPlusUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CED7D4602E796E30009C2F49 /*  Models  */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D4612E796E56009C2F49 /*  User.swift */,
+				CEF2F2E12E7C521900BA75AB /* Post.swift */,
+				CE6EE0632E7D0917004A386D /* SymptomEntry.swift */,
+				CEE2ED6C2E7D737D004078D6 /*  Doctor.swift */,
+				CEE2ED6E2E7D82C0004078D6 /*  HomePost.swift */,
+			);
+			path = " Models ";
+			sourceTree = "<group>";
+		};
+		CED7D4632E796E75009C2F49 /*  Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D4AB2E7AB8C2009C2F49 /* LocationService.swift */,
+			);
+			path = " Resources";
+			sourceTree = "<group>";
+		};
+		CED7D4642E796E94009C2F49 /*  Services */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D4652E796F16009C2F49 /*   LocalDataService.swift */,
+				CED7D4672E796F5B009C2F49 /*   AuthService.swift */,
+				CED7D4692E796F83009C2F49 /* NetworkService.swift */,
+				CED7D4A92E7AA927009C2F49 /* NotificationService.swift */,
+				CED7D4AF2E7ACA96009C2F49 /* NetworkMonitor.swift */,
+				CEF114382E7BC1540013CB41 /*  PersistenceController.swift */,
+			);
+			path = " Services";
+			sourceTree = "<group>";
+		};
+		CED7D46B2E796F9C009C2F49 /*  ViewModels  */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D46C2E796FCF009C2F49 /*   AuthViewModel.swift */,
+				CED7D46E2E796FEF009C2F49 /*   HomeViewModel.swift */,
+				CED7D4702E79702B009C2F49 /*   SymptomCheckerViewModel.swift */,
+				CEF114342E7BBC310013CB41 /*  EditablePostView.swift */,
+				CEF1143C2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift */,
+				CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */,
+				CE4082842E7F9794009A7932 /*  DoctorManager.swift */,
+			);
+			path = " ViewModels ";
+			sourceTree = "<group>";
+		};
+		CED7D4722E79703F009C2F49 /*  Views  */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D4732E797079009C2F49 /*  LoginView.swift */,
+				CED7D4752E7970FF009C2F49 /*   HomeView.swift */,
+				CED7D4772E797130009C2F49 /*   SymptomCheckerView.swift */,
+				CED7D4792E79718B009C2F49 /*   OfflineEntriesView.swift */,
+				CED7D4A72E7A61F9009C2F49 /*  WelcomeView.swift */,
+				CED7D4AD2E7AC8DC009C2F49 /*  MapMeetingView.swift */,
+				CEEFCDDB2E7C681200DF93F3 /*  ConsultDoctorView.swift */,
+			);
+			path = " Views ";
+			sourceTree = "<group>";
+		};
+		CED7D4802E797E35009C2F49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CED7D4892E79A57C009C2F49 /*  Managers */ = {
+			isa = PBXGroup;
+			children = (
+				CED7D48A2E79A598009C2F49 /* LocalizationManager.swift */,
+				CEEFCDDD2E7CCBDC00DF93F3 /*  NotificationManager.swift */,
+				CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */,
+			);
+			path = " Managers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +303,9 @@
 			);
 			name = WaspitoPlus;
 			packageProductDependencies = (
+				CED7D4812E797E35009C2F49 /* FirebaseAuth */,
+				CED7D4832E797E42009C2F49 /* FirebaseCore */,
+				CED7D4852E797E62009C2F49 /* FirebaseFirestore */,
 			);
 			productName = WaspitoPlus;
 			productReference = CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */;
@@ -195,6 +389,9 @@
 			);
 			mainGroup = CED7D4282E796DF5009C2F49;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CED7D4322E796DF5009C2F49 /* Products */;
 			projectDirPath = "";
@@ -212,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED7D47D2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED7D47E2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +425,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED7D47C2E797B2D009C2F49 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +436,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9ED8982E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */,
+				CEF114392E7BC1540013CB41 /*  PersistenceController.swift in Sources */,
+				CED7D4742E797079009C2F49 /*  LoginView.swift in Sources */,
+				CED7D4622E796E56009C2F49 /*  User.swift in Sources */,
+				CED7D4762E7970FF009C2F49 /*   HomeView.swift in Sources */,
+				CE6EE0642E7D0917004A386D /* SymptomEntry.swift in Sources */,
+				CEEFCDDC2E7C681200DF93F3 /*  ConsultDoctorView.swift in Sources */,
+				CED7D46A2E796F83009C2F49 /* NetworkService.swift in Sources */,
+				CED7D4A82E7A61F9009C2F49 /*  WelcomeView.swift in Sources */,
+				CE6EE0662E7D0B38004A386D /*  DoctorNotificationManager.swift in Sources */,
+				CEEFCDDE2E7CCBDC00DF93F3 /*  NotificationManager.swift in Sources */,
+				CED7D4782E797130009C2F49 /*   SymptomCheckerView.swift in Sources */,
+				CED7D4AE2E7AC8DC009C2F49 /*  MapMeetingView.swift in Sources */,
+				CEF1143D2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift in Sources */,
+				CEF114352E7BBC310013CB41 /*  EditablePostView.swift in Sources */,
+				CE4082852E7F9794009A7932 /*  DoctorManager.swift in Sources */,
+				CED7D4682E796F5B009C2F49 /*   AuthService.swift in Sources */,
+				CEE2ED6F2E7D82C0004078D6 /*  HomePost.swift in Sources */,
+				CED7D4AA2E7AA927009C2F49 /* NotificationService.swift in Sources */,
+				CED7D46F2E796FEF009C2F49 /*   HomeViewModel.swift in Sources */,
+				CED7D43E2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld in Sources */,
+				CEE2ED6D2E7D737D004078D6 /*  Doctor.swift in Sources */,
+				CED7D48B2E79A598009C2F49 /* LocalizationManager.swift in Sources */,
+				CED7D47A2E79718B009C2F49 /*   OfflineEntriesView.swift in Sources */,
+				CED7D4712E79702B009C2F49 /*   SymptomCheckerViewModel.swift in Sources */,
+				CED7D46D2E796FCF009C2F49 /*   AuthViewModel.swift in Sources */,
+				CED7D4B02E7ACA96009C2F49 /* NetworkMonitor.swift in Sources */,
+				CEB95AE02E7D11860064D61B /*  Notification+Extensions.swift in Sources */,
+				CED7D4AC2E7AB8C2009C2F49 /* LocationService.swift in Sources */,
+				CEF2F2E22E7C521900BA75AB /* Post.swift in Sources */,
+				CED7D4662E796F16009C2F49 /*   LocalDataService.swift in Sources */,
+				CE9ED8B62E7C43B60077F77D /*  FeedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +475,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9ED8972E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */,
+				CE9ED8B72E7C43B60077F77D /*  FeedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +484,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9ED8962E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */,
+				CE9ED8B82E7C43B60077F77D /*  FeedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +633,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WaspitoPlus/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -424,6 +662,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WaspitoPlus/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -550,6 +790,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CED7D4812E797E35009C2F49 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		CED7D4832E797E42009C2F49 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		CED7D4852E797E62009C2F49 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CED7D43C2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CED7D43D2E796DF7009C2F49 /* WaspitoPlus.xcdatamodel */,
+			);
+			currentVersion = CED7D43D2E796DF7009C2F49 /* WaspitoPlus.xcdatamodel */;
+			path = WaspitoPlus.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CED7D4292E796DF5009C2F49 /* Project object */;
 }
