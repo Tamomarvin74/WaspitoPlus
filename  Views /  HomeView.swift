@@ -288,7 +288,7 @@ struct HomeView: View {
     }
 }
 
- struct DoctorTopCard: View {
+struct DoctorTopCard: View {
     let doctor: Doctor
 
     var body: some View {
@@ -298,16 +298,16 @@ struct HomeView: View {
                 Image(uiImage: avatar)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 80, height: 80)
+                    .frame(width: 60, height: 60)
                     .clipShape(Circle())
             } else {
                 Circle()
-                    .fill(Color.gray)
-                    .frame(width: 80, height: 80)
+                    .fill(Color.green.opacity(0.8))
+                    .frame(width: 60, height: 60)
                     .overlay(
                         Text(doctor.name.prefix(1))
                             .foregroundColor(.white)
-                            .font(.title)
+                            .font(.title2)
                     )
             }
 
@@ -322,57 +322,71 @@ struct HomeView: View {
             Text(doctor.city.isEmpty ? "City: Unknown" : "City: \(doctor.city)")
                 .font(.caption)
                 .foregroundColor(.blue)
-            
+
             // Specialties
             if !doctor.specialties.isEmpty {
-                Text("Specialties: \(doctor.specialties.joined(separator: ", "))")
-                    .font(.caption)
+                Text(doctor.specialties.joined(separator: ", "))
+                    .font(.caption2)
                     .foregroundColor(.secondary)
             }
 
             // Online Status
-            Text(doctor.isOnline ? "Online" : "Offline")
-                .font(.caption)
-                .foregroundColor(doctor.isOnline ? .green : .red)
+            HStack {
+                Circle()
+                    .fill(doctor.isOnline ? Color.green : Color.red)
+                    .frame(width: 8, height: 8)
+                Text(doctor.isOnline ? "Online" : "Offline")
+                    .font(.caption)
+                    .foregroundColor(doctor.isOnline ? .green : .red)
+            }
 
-            // Messenger Link Button
+            // Messenger Button
             if let link = doctor.messengerLink, doctor.isOnline {
                 Button(action: {
                     if UIApplication.shared.canOpenURL(link) {
                         UIApplication.shared.open(link)
                     }
                 }) {
-                    Text("Message Doctor")
+                    Text("Message")
                         .font(.caption)
                         .padding(6)
                         .frame(maxWidth: .infinity)
                         .background(Color.green)
                         .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(6)
                 }
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color.white)
         .cornerRadius(12)
-        .frame(width: 200)
         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+        .frame(width: 180)
     }
 }
+
 
 // MARK: - PostCardView
 struct PostCardView: View {
     @Binding var post: Post
+    @State private var newComment: String = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Author & Title
+            // Author
             Text(post.authorName ?? "Unknown")
                 .font(.headline)
-            Text(post.title ?? "")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            
+            if !post.title.isEmpty {
+                Text(post.title)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            if !post.content.isEmpty {
+                Text(post.content)
+                    .font(.body)
+            }
+
+
             // Image
             if let img = post.image {
                 Image(uiImage: img)
@@ -389,24 +403,57 @@ struct PostCardView: View {
                     .frame(height: 200)
                     .cornerRadius(8)
             }
-            
-            // Likes & Comments
+
+            // Likes / Comments / Views
             HStack {
-                Text("\(post.likes ?? 0) likes")
+                Button(action: { post.likes = (post.likes ?? 0) + 1 }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "hand.thumbsup.fill")
+                        Text("\(post.likes ?? 0)")
+                    }
+                }
                 Spacer()
-                Text("\(post.commentsCount ?? 0) comments")
+                HStack(spacing: 4) {
+                    Image(systemName: "text.bubble")
+                    Text("\(post.comments.count)")
+                }
+                Spacer()
+                HStack(spacing: 4) {
+                    Image(systemName: "eye")
+                    Text("\(post.views ?? 0)")
+                }
             }
             .font(.caption)
             .foregroundColor(.gray)
+
+            // Add Comment
+            HStack {
+                TextField("Add a comment...", text: $newComment)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button("Post") {
+                    guard !newComment.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+                    post.comments.append(newComment)
+                    newComment = ""
+                }
+                .padding(.horizontal, 6)
+            }
+            .padding(.top, 4)
+
+            // Show Comments
+            if !post.comments.isEmpty {
+                ForEach(post.comments, id: \.self) { comment in
+                    Text(comment)
+                        .font(.caption)
+                        .padding(.vertical, 2)
+                }
+            }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color.white)
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
-
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
