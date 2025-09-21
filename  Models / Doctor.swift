@@ -10,7 +10,9 @@ struct Doctor: Identifiable, Codable {
     var hospitalName: String?
     var specialties: [String]
     var coordinate: CLLocationCoordinate2D
-    var avatar: UIImage?
+    var city: String
+    var avatar: UIImage? = nil
+    var messengerLink: URL? = nil   
 
     init(
         id: UUID = UUID(),
@@ -20,7 +22,9 @@ struct Doctor: Identifiable, Codable {
         hospitalName: String? = nil,
         specialties: [String] = [],
         coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0),
-        avatar: UIImage? = nil
+        city: String = "",
+        avatar: UIImage? = nil,
+        messengerLink: URL? = nil
     ) {
         self.id = id
         self.name = name
@@ -29,14 +33,16 @@ struct Doctor: Identifiable, Codable {
         self.hospitalName = hospitalName
         self.specialties = specialties
         self.coordinate = coordinate
+        self.city = city
         self.avatar = avatar
+        self.messengerLink = messengerLink
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, name, phone, isOnline, hospitalName, specialties, latitude, longitude
+        case id, name, phone, isOnline, hospitalName, specialties, latitude, longitude, city, messengerLink
     }
 
-     init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         id = try container.decode(UUID.self, forKey: .id)
@@ -45,6 +51,8 @@ struct Doctor: Identifiable, Codable {
         isOnline = try container.decode(Bool.self, forKey: .isOnline)
         hospitalName = try container.decodeIfPresent(String.self, forKey: .hospitalName)
         specialties = try container.decode([String].self, forKey: .specialties)
+        city = try container.decode(String.self, forKey: .city)
+        messengerLink = try container.decodeIfPresent(URL.self, forKey: .messengerLink)
 
         let latitude = try container.decode(CLLocationDegrees.self, forKey: .latitude)
         let longitude = try container.decode(CLLocationDegrees.self, forKey: .longitude)
@@ -62,10 +70,10 @@ struct Doctor: Identifiable, Codable {
         try container.encode(isOnline, forKey: .isOnline)
         try container.encodeIfPresent(hospitalName, forKey: .hospitalName)
         try container.encode(specialties, forKey: .specialties)
-
+        try container.encode(city, forKey: .city)
+        try container.encodeIfPresent(messengerLink, forKey: .messengerLink)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
-        
     }
 }
 

@@ -19,7 +19,7 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-             homeTab
+            homeTab
                 .tabItem { Label("Home", systemImage: "house.fill") }
                 .tag(0)
             
@@ -82,9 +82,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     
                     profileAndPostMenu
-                    
                     onlineDoctorsSection
-                    
                     postsAndSearchSection
                     
                     Spacer(minLength: 30)
@@ -156,18 +154,23 @@ struct HomeView: View {
     
     // MARK: - Online Doctors Section
     private var onlineDoctorsSection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                ForEach(doctorManager.onlineDoctors) { doc in
-                    DoctorTopCard(doctor: doc)
-                        .frame(width: 200)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Available Doctors")
+                .font(.headline)
+                .padding(.horizontal)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(doctorManager.onlineDoctors) { doc in
+                        DoctorTopCard(doctor: doc)
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
     }
     
-     private var postsAndSearchSection: some View {
+    // MARK: - Posts Section
+    private var postsAndSearchSection: some View {
         VStack(spacing: 16) {
             ForEach(feedVM.filteredPosts, id: \.id) { filteredPost in
                 if let binding = bindingForPost(filteredPost) {
@@ -285,12 +288,12 @@ struct HomeView: View {
     }
 }
 
-// MARK: - DoctorTopCard
-struct DoctorTopCard: View {
+ struct DoctorTopCard: View {
     let doctor: Doctor
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 8) {
+            // Avatar
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()
@@ -301,21 +304,59 @@ struct DoctorTopCard: View {
                 Circle()
                     .fill(Color.gray)
                     .frame(width: 80, height: 80)
-                    .overlay(Text(doctor.name.prefix(1)).foregroundColor(.white))
+                    .overlay(
+                        Text(doctor.name.prefix(1))
+                            .foregroundColor(.white)
+                            .font(.title)
+                    )
             }
 
-            Text(doctor.name)
+            // Name & Hospital
+            Text(doctor.name.isEmpty ? "Unknown Doctor" : doctor.name)
                 .font(.headline)
-            Text(doctor.specialties.joined(separator: ", "))
+            Text(doctor.hospitalName?.isEmpty == false ? doctor.hospitalName! : "Unknown Hospital")
                 .font(.subheadline)
                 .foregroundColor(.gray)
+
+            // City
+            Text(doctor.city.isEmpty ? "City: Unknown" : "City: \(doctor.city)")
+                .font(.caption)
+                .foregroundColor(.blue)
+            
+            // Specialties
+            if !doctor.specialties.isEmpty {
+                Text("Specialties: \(doctor.specialties.joined(separator: ", "))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            // Online Status
             Text(doctor.isOnline ? "Online" : "Offline")
                 .font(.caption)
                 .foregroundColor(doctor.isOnline ? .green : .red)
+
+            // Messenger Link Button
+            if let link = doctor.messengerLink, doctor.isOnline {
+                Button(action: {
+                    if UIApplication.shared.canOpenURL(link) {
+                        UIApplication.shared.open(link)
+                    }
+                }) {
+                    Text("Message Doctor")
+                        .font(.caption)
+                        .padding(6)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
         }
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(12)
+        .frame(width: 200)
+        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
 
@@ -324,35 +365,47 @@ struct PostCardView: View {
     @Binding var post: Post
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(post.authorName ?? "Unknown").font(.headline)
-            Text(post.title ?? "").font(.subheadline)
+        VStack(alignment: .leading, spacing: 8) {
+            // Author & Title
+            Text(post.authorName ?? "Unknown")
+                .font(.headline)
+            Text(post.title ?? "")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             
+            // Image
             if let img = post.image {
                 Image(uiImage: img)
                     .resizable()
                     .scaledToFill()
                     .frame(height: 200)
                     .clipped()
+                    .cornerRadius(8)
             }
 
+            // Video
             if let videoURL = post.videoURL {
                 VideoPlayer(player: AVPlayer(url: videoURL))
                     .frame(height: 200)
+                    .cornerRadius(8)
             }
             
+            // Likes & Comments
             HStack {
-                Text("\(post.likes) likes")
+                Text("\(post.likes ?? 0) likes")
                 Spacer()
-                Text("\(post.commentsCount) comments")
+                Text("\(post.commentsCount ?? 0) comments")
             }
             .font(.caption)
+            .foregroundColor(.gray)
         }
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
