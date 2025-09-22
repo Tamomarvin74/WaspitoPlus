@@ -1,3 +1,9 @@
+//  HomeView.swift
+//  WaspitoPlus
+//
+//  Created by Tamo Marvin Achiri on 9/16/25.
+//
+
 import SwiftUI
 import PhotosUI
 import CoreLocation
@@ -14,6 +20,10 @@ struct HomeView: View {
     @State private var showingImagePicker = false
     @State private var showingVideoPicker = false
     @State private var pickedItems: [PhotosPickerItem] = []
+    @State private var showingCreatePostSheet = false
+    @State private var newPostText: String = ""
+    @State private var newPostUIImage: UIImage? = nil
+    @State private var newPostVideoURL: URL? = nil
     
     @State private var avatarPickerItem: PhotosPickerItem? = nil
     
@@ -51,6 +61,7 @@ struct HomeView: View {
             feedVM.loadSamplePosts()
             doctorManager.loadSampleDoctors()
             feedVM.loadOfflineEntries()
+            doctorManager.startAutoRefresh()
         }
         .photosPicker(isPresented: $showingImagePicker, selection: $pickedItems, matching: .images)
         .photosPicker(isPresented: $showingVideoPicker, selection: $pickedItems, matching: .videos)
@@ -63,17 +74,66 @@ struct HomeView: View {
                 feedVM.setCurrentUserAvatar(ui)
             }
         }
+        .sheet(isPresented: $showingCreatePostSheet) {
+            NavigationView {
+                VStack {
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            TextEditor(text: $newPostText)
+                                .frame(height: 120)
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(.systemGray4)))
+                                .padding()
+                            
+                            if let img = newPostUIImage {
+                                Image(uiImage: img)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxHeight: 220)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal)
+                            } else if let videoURL = newPostVideoURL {
+                                VideoPlayer(player: AVPlayer(url: videoURL))
+                                    .frame(height: 220)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal)
+                            }
+                            
+                            HStack {
+                                Button { showingImagePicker = true } label: {
+                                    Label("Add Photo", systemImage: "photo")
+                                }
+                                Spacer()
+                                Button { showingVideoPicker = true } label: {
+                                    Label("Add Video", systemImage: "video")
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                }
+                .navigationTitle("New Post")
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Post") { createPost() }
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") {
+                            clearCreatePost()
+                            showingCreatePostSheet = false
+                        }
+                    }
+                }
+            }
+        }
     }
     
-    // MARK: - Home Tab
+    // MARK: Home Tab
     private var homeTab: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    // Search Bar
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                        Image(systemName: "magnifyingglass").foregroundColor(.gray)
                         TextField("Search symptoms, posts, doctors...", text: $feedVM.searchText)
                             .padding(10)
                             .background(Color(.systemGray6))
@@ -98,19 +158,17 @@ struct HomeView: View {
                         .scaledToFit()
                         .frame(width: 36, height: 36)
                 }
-                
                 ToolbarItem(placement: .principal) {
                     Text("WaspitoPlus")
                         .font(.headline)
                         .foregroundColor(.green)
                 }
-                
                 topToolbar
             }
         }
     }
     
-    // MARK: - Profile & Post Menu
+    // MARK: Profile & Post Menu
     private var profileAndPostMenu: some View {
         HStack(spacing: 12) {
             PhotosPicker(selection: $avatarPickerItem, matching: .images, photoLibrary: .shared()) {
@@ -130,12 +188,11 @@ struct HomeView: View {
                     }
                 }
             }
-            
             Spacer()
-            
             Menu {
                 Button("Upload Photo") { showingImagePicker = true }
                 Button("Upload Video") { showingVideoPicker = true }
+                Button("Write Post") { showingCreatePostSheet = true }
             } label: {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
@@ -152,16 +209,29 @@ struct HomeView: View {
         .padding(.top, 8)
     }
     
-    // MARK: - Online Doctors Section
+    // MARK: Online Doctors
     private var onlineDoctorsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Available Doctors")
-                .font(.headline)
-                .padding(.horizontal)
+            HStack {
+                Text("Available Doctors").font(.headline)
+                Spacer()
+                Button(action: { doctorManager.refreshOnlineNow() }) {
+                    Image(systemName: "arrow.clockwise").font(.caption)
+                }
+            }
+            .padding(.horizontal)
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(doctorManager.onlineDoctors) { doc in
-                        DoctorTopCard(doctor: doc)
+                        NavigationLink(destination: DoctorProfileDetailView(
+                            doctor: doc,
+                            illness: doc.specialties.first ?? "General"
+                        )) {
+                            DoctorTopCard(doctor: doc)
+                        }
+
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 .padding(.horizontal)
@@ -169,16 +239,14 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - Posts Section
+    // MARK: Posts
     private var postsAndSearchSection: some View {
         VStack(spacing: 16) {
             ForEach(feedVM.filteredPosts, id: \.id) { filteredPost in
                 if let binding = bindingForPost(filteredPost) {
-                    PostCardView(post: binding)
-                        .padding(.horizontal)
+                    PostCardView(post: binding).padding(.horizontal)
                 } else {
-                    PostCardView(post: .constant(filteredPost))
-                        .padding(.horizontal)
+                    PostCardView(post: .constant(filteredPost)).padding(.horizontal)
                 }
             }
         }
@@ -189,27 +257,49 @@ struct HomeView: View {
         return Binding(get: { feedVM.posts[idx] }, set: { feedVM.posts[idx] = $0 })
     }
     
-    // MARK: - Toolbar
+    // MARK: Toolbar
     private var topToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(action: { feedVM.showNotifications.toggle() }) {
+            // Bell button in topToolbar
+            Button(action: {
+                withAnimation {
+                    feedVM.showNotifications.toggle() // Show/hide overlay
+                }
+                
+                if feedVM.showNotifications {
+                    feedVM.markNotificationsAsSeen()  
+                }
+            }) {
                 ZStack(alignment: .topTrailing) {
                     Image(systemName: "bell.fill")
                         .font(.title2)
                         .foregroundColor(.green)
+                        .rotationEffect(.degrees(feedVM.shouldShakeBell ? 10 : 0))
+                        .animation(
+                            feedVM.shouldShakeBell
+                                ? Animation.easeInOut(duration: 0.1).repeatForever(autoreverses: true)
+                                : .default,
+                            value: feedVM.shouldShakeBell
+                        )
+                    
                     if feedVM.hasPendingNotification {
-                        Circle().fill(Color.red).frame(width: 10, height: 10).offset(x: 8, y: -8)
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 10, height: 10)
+                            .offset(x: 8, y: -8)
                     }
                 }
             }
-            
+
+
+
             Button(action: { feedVM.showLocation.toggle() }) {
                 Image(systemName: "globe")
                     .foregroundColor(.green)
                     .scaleEffect(feedVM.showLocationHeartbeat ? 1.2 : 1)
-                    .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: feedVM.showLocationHeartbeat)
+                    .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true),
+                               value: feedVM.showLocationHeartbeat)
             }
-
             if let avatar = feedVM.currentUserAvatarImage {
                 Image(uiImage: avatar)
                     .resizable()
@@ -223,41 +313,69 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - Handle Picked Media
+    // MARK: Post Handling
     private func handlePickedItems(_ newItems: [PhotosPickerItem]) {
         guard let item = newItems.first else { return }
         Task {
             if item.supportedContentTypes.contains(.image),
                let data = try? await item.loadTransferable(type: Data.self),
                let ui = UIImage(data: data) {
-                let newPost = Post(authorName: feedVM.currentUserName ?? "You",
-                                   title: "",
-                                   content: "",
-                                   image: ui,
-                                   likes: 0,
-                                   commentsCount: 0,
-                                   views: 0,
-                                   date: Date(),
-                                   comments: [])
-                feedVM.addPost(newPost)
-            } else if item.supportedContentTypes.contains(.movie) || item.supportedContentTypes.contains(.video),
-                      let url = try? await item.loadTransferable(type: URL.self) {
-                let newPost = Post(authorName: feedVM.currentUserName ?? "You",
-                                   title: "",
-                                   content: "",
-                                   videoURL: url,
-                                   likes: 0,
-                                   commentsCount: 0,
-                                   views: 0,
-                                   date: Date(),
-                                   comments: [])
-                feedVM.addPost(newPost)
+                if showingCreatePostSheet {
+                    newPostUIImage = ui
+                } else {
+                    let newPost = Post(authorName: feedVM.currentUserName,
+                                       title: "",
+                                       content: "",
+                                       image: ui,
+                                       likes: 0,
+                                       commentsCount: 0,
+                                       views: 0,
+                                       date: Date(),
+                                       comments: [])
+                    feedVM.addPost(newPost)
+                }
+            } else if let url = try? await item.loadTransferable(type: URL.self) {
+                if showingCreatePostSheet {
+                    newPostVideoURL = url
+                } else {
+                    let newPost = Post(authorName: feedVM.currentUserName,
+                                       title: "",
+                                       content: "",
+                                       videoURL: url,
+                                       likes: 0,
+                                       commentsCount: 0,
+                                       views: 0,
+                                       date: Date(),
+                                       comments: [])
+                    feedVM.addPost(newPost)
+                }
             }
             pickedItems = []
         }
     }
     
-    // MARK: - Settings Tab
+    private func createPost() {
+        let newPost = Post(authorName: feedVM.currentUserName,
+                           title: newPostText.isEmpty ? "" : newPostText,
+                           content: newPostText.isEmpty ? "" : newPostText,
+                           image: newPostUIImage,
+                           likes: 0,
+                           commentsCount: 0,
+                           views: 0,
+                           date: Date(),
+                           comments: [])
+        feedVM.addPost(newPost)
+        clearCreatePost()
+        showingCreatePostSheet = false
+    }
+    
+    private func clearCreatePost() {
+        newPostText = ""
+        newPostUIImage = nil
+        newPostVideoURL = nil
+    }
+    
+    // MARK: Settings Tab
     private var settingsTab: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -288,59 +406,74 @@ struct HomeView: View {
     }
 }
 
+// MARK: Doctor Card
 struct DoctorTopCard: View {
     let doctor: Doctor
-
+    
+    private func avatarURL(for doctor: Doctor) -> URL? {
+        let sampleURLs = [
+            "https://randomuser.me/api/portraits/women/65.jpg",
+            "https://randomuser.me/api/portraits/men/43.jpg",
+            "https://randomuser.me/api/portraits/women/32.jpg",
+            "https://randomuser.me/api/portraits/men/56.jpg",
+            "https://randomuser.me/api/portraits/women/20.jpg",
+            "https://randomuser.me/api/portraits/men/14.jpg"
+        ]
+        let idx = abs(doctor.name.hashValue) % sampleURLs.count
+        return URL(string: sampleURLs[idx])
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Avatar
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 60, height: 60)
                     .clipShape(Circle())
+            } else if let url = avatarURL(for: doctor) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        Circle().fill(Color.gray.opacity(0.2)).frame(width: 60, height: 60)
+                    case .success(let img):
+                        img.resizable()
+                            .scaledToFill()
+                            .frame(width: 60, height: 60)
+                            .clipShape(Circle())
+                    case .failure:
+                        Circle().fill(Color.gray).frame(width: 60, height: 60)
+                    @unknown default:
+                        Circle().fill(Color.gray).frame(width: 60, height: 60)
+                    }
+                }
             } else {
                 Circle()
                     .fill(Color.green.opacity(0.8))
                     .frame(width: 60, height: 60)
-                    .overlay(
-                        Text(doctor.name.prefix(1))
-                            .foregroundColor(.white)
-                            .font(.title2)
-                    )
+                    .overlay(Text(doctor.name.prefix(1)).foregroundColor(.white).font(.title2))
             }
-
-            // Name & Hospital
-            Text(doctor.name.isEmpty ? "Unknown Doctor" : doctor.name)
-                .font(.headline)
-            Text(doctor.hospitalName?.isEmpty == false ? doctor.hospitalName! : "Unknown Hospital")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-
-            // City
+            
+            Text(doctor.name.isEmpty ? "Unknown Doctor" : doctor.name).font(.headline)
+            Text((doctor.hospitalName?.isEmpty == false ? doctor.hospitalName! : "Unknown Hospital"))
+                .font(.subheadline).foregroundColor(.gray)
+            
             Text(doctor.city.isEmpty ? "City: Unknown" : "City: \(doctor.city)")
-                .font(.caption)
-                .foregroundColor(.blue)
-
-            // Specialties
+                .font(.caption).foregroundColor(.blue)
+            
             if !doctor.specialties.isEmpty {
                 Text(doctor.specialties.joined(separator: ", "))
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
-
-            // Online Status
+            
             HStack {
-                Circle()
-                    .fill(doctor.isOnline ? Color.green : Color.red)
-                    .frame(width: 8, height: 8)
+                Circle().fill(doctor.isOnline ? Color.green : Color.red).frame(width: 8, height: 8)
                 Text(doctor.isOnline ? "Online" : "Offline")
                     .font(.caption)
                     .foregroundColor(doctor.isOnline ? .green : .red)
             }
-
-            // Messenger Button
+            
             if let link = doctor.messengerLink, doctor.isOnline {
                 Button(action: {
                     if UIApplication.shared.canOpenURL(link) {
@@ -365,95 +498,167 @@ struct DoctorTopCard: View {
     }
 }
 
-
-// MARK: - PostCardView
 struct PostCardView: View {
     @Binding var post: Post
     @State private var newComment: String = ""
+    @State private var isLikedLocal: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Author
-            Text(post.authorName ?? "Unknown")
-                .font(.headline)
+            // Header with author info and share button
+            HStack(alignment: .top) {
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.green.opacity(0.25))
+                        .frame(width: 40, height: 40)
+                        .overlay(
+                            Text(String((post.authorName ?? "U").prefix(1)))
+                                .foregroundColor(.green)
+                                .bold()
+                        )
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(post.authorName ?? "Unknown")
+                            .font(.headline)
+                        Text(dateFormatted(post.date))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+
+                }
+                Spacer()
+                Button(action: { sharePost(post) }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.green)
+                }
+            }
+
+            // Post title
             if !post.title.isEmpty {
                 Text(post.title)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.primary)
             }
+
+            // Post content
             if !post.content.isEmpty {
                 Text(post.content)
                     .font(.body)
             }
 
-
-            // Image
+            // Post image
             if let img = post.image {
                 Image(uiImage: img)
                     .resizable()
                     .scaledToFill()
-                    .frame(height: 200)
+                    .frame(height: 220)
                     .clipped()
                     .cornerRadius(8)
             }
 
-            // Video
+            // Post video
             if let videoURL = post.videoURL {
                 VideoPlayer(player: AVPlayer(url: videoURL))
-                    .frame(height: 200)
+                    .frame(height: 220)
                     .cornerRadius(8)
             }
 
-            // Likes / Comments / Views
+            // Likes, comments, views
             HStack {
-                Button(action: { post.likes = (post.likes ?? 0) + 1 }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "hand.thumbsup.fill")
-                        Text("\(post.likes ?? 0)")
+                Button(action: toggleLike) {
+                    HStack(spacing: 6) {
+                        Image(systemName: isLikedLocal ? "hand.thumbsup.fill" : "hand.thumbsup")
+                            .foregroundColor(isLikedLocal ? .green : .primary)
+                        Text("\(post.likes)")
+                            .foregroundColor(isLikedLocal ? .green : .primary)
                     }
                 }
                 Spacer()
-                HStack(spacing: 4) {
+                HStack(spacing: 6) {
                     Image(systemName: "text.bubble")
-                    Text("\(post.comments.count)")
+                    Text("\(post.commentsCount)")
                 }
                 Spacer()
-                HStack(spacing: 4) {
+                HStack(spacing: 6) {
                     Image(systemName: "eye")
-                    Text("\(post.views ?? 0)")
+                    Text("\(post.views)")
                 }
             }
             .font(.caption)
+            .padding(.vertical, 6)
             .foregroundColor(.gray)
 
-            // Add Comment
+            // Comment input
             HStack {
-                TextField("Add a comment...", text: $newComment)
+                TextField("Write a comment...", text: $newComment)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button("Post") {
-                    guard !newComment.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-                    post.comments.append(newComment)
-                    newComment = ""
-                }
-                .padding(.horizontal, 6)
+                Button("Post") { addComment() }
+                    .padding(.horizontal, 6)
             }
-            .padding(.top, 4)
 
-            // Show Comments
+            // Existing comments
             if !post.comments.isEmpty {
-                ForEach(post.comments, id: \.self) { comment in
-                    Text(comment)
-                        .font(.caption)
-                        .padding(.vertical, 2)
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(Array(post.comments.enumerated()), id: \.offset) { _, comment in
+                        HStack(alignment: .top, spacing: 8) {
+                            Circle()
+                                .fill(Color.gray.opacity(0.2))
+                                .frame(width: 28, height: 28)
+                                .overlay(Text(String(comment.prefix(1))).foregroundColor(.green))
+                            Text(comment)
+                                .font(.caption)
+                        }
+                    }
                 }
+                .padding(.top, 6)
             }
         }
         .padding()
         .background(Color.white)
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+        .onAppear { post.views += 1 }
+    }
+
+    // MARK: Helpers
+    private func dateFormatted(_ d: Date) -> String {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        return df.string(from: d)
+    }
+
+    private func toggleLike() {
+        if isLikedLocal {
+            post.likes = max(post.likes - 1, 0)
+        } else {
+            post.likes += 1
+        }
+        isLikedLocal.toggle()
+    }
+
+    private func addComment() {
+        let trimmed = newComment.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        post.comments.append(trimmed)
+        post.commentsCount += 1
+        newComment = ""
+    }
+
+    private func sharePost(_ post: Post) {
+        var items: [Any] = []
+        if !post.content.isEmpty { items.append(post.content) }
+        if !post.title.isEmpty { items.append(post.title) }
+        if let img = post.image { items.append(img) }
+
+        let av = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        if let root = UIApplication.shared.windows.first?.rootViewController {
+            root.present(av, animated: true, completion: nil)
+        }
     }
 }
+
+
+// MARK: Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()

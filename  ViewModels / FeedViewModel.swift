@@ -5,58 +5,69 @@ import CoreLocation
 @MainActor
 final class FeedViewModel: ObservableObject {
 
-    @Published var posts: [Post] = []
+     @Published var posts: [Post] = []
     @Published var doctors: [Doctor] = []
     @Published var offlineEntries: [SymptomEntry] = []
 
-    @Published var searchText: String = "" {
-        didSet {
-        }
-    }
+    @Published var searchText: String = ""
     @Published var currentUserAvatarImage: UIImage? = nil
     @Published var currentUserName: String? = "You"
 
     @Published var showNotifications: Bool = false
     @Published var hasPendingNotification: Bool = false
+    @Published var shouldShakeBell: Bool = false
 
     @Published var showLocation: Bool = false
     @Published var showLocationHeartbeat: Bool = false
 
-    init() {
+     @Published var notifications: [String] = []
+
+  
+    func triggerReminder(message: String) {
+        notifications.append(message)
+        hasPendingNotification = true
+        shouldShakeBell = true
+    }
+
+     func markNotificationsAsSeen() {
+        hasPendingNotification = false
+        shouldShakeBell = false
+    }
+
+     init() {
         loadSamplePosts()
         loadSampleDoctors()
         loadOfflineEntries()
     }
 
- 
-    var filteredPosts: [Post] {
-        let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        guard !q.isEmpty else { return posts }
+     var filteredPosts: [Post] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !query.isEmpty else { return posts }
         return posts.filter { post in
-            post.title.lowercased().contains(q) ||
-            post.content.lowercased().contains(q) ||
-            (post.authorName ?? "").lowercased().contains(q)
+            post.title.lowercased().contains(query) ||
+            post.content.lowercased().contains(query) ||
+            (post.authorName ?? "").lowercased().contains(query)
         }
     }
 
     var filteredDoctors: [Doctor] {
-        let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        guard !q.isEmpty else { return doctors }
-        return doctors.filter { d in
-            d.name.lowercased().contains(q) ||
-            d.specialties.joined(separator: ", ").lowercased().contains(q) ||
-            (d.hospitalName ?? "").lowercased().contains(q)
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !query.isEmpty else { return doctors }
+        return doctors.filter { doctor in
+            doctor.name.lowercased().contains(query) ||
+            doctor.specialties.joined(separator: ", ").lowercased().contains(query) ||
+            (doctor.hospitalName ?? "").lowercased().contains(query)
         }
     }
 
     var filteredOfflineEntries: [SymptomEntry] {
-        let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        guard !q.isEmpty else { return offlineEntries }
-        return offlineEntries.filter { e in
-            e.title.lowercased().contains(q) ||
-            e.details.lowercased().contains(q) ||
-            e.symptoms.lowercased().contains(q) ||
-            e.name.lowercased().contains(q)
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !query.isEmpty else { return offlineEntries }
+        return offlineEntries.filter { entry in
+            entry.title.lowercased().contains(query) ||
+            entry.details.lowercased().contains(query) ||
+            entry.symptoms.lowercased().contains(query) ||
+            entry.name.lowercased().contains(query)
         }
     }
 
@@ -121,7 +132,7 @@ final class FeedViewModel: ObservableObject {
         ]
     }
 
-    // MARK: - Posts actions
+    // MARK: - Post actions
     func addPost(_ post: Post) {
         posts.insert(post, at: 0)
     }
@@ -136,7 +147,7 @@ final class FeedViewModel: ObservableObject {
         posts[idx].likes += 1
     }
 
-    // MARK: - Doctors actions
+    // MARK: - Doctor actions
     func addDoctor(_ doc: Doctor) {
         doctors.insert(doc, at: 0)
     }

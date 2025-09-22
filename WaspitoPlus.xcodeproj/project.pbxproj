@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CE4082852E7F9794009A7932 /*  DoctorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082842E7F9794009A7932 /*  DoctorManager.swift */; };
+		CE4082872E80D0E9009A7932 /*  DoctorProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082862E80D0E9009A7932 /*  DoctorProfileDetailView.swift */; };
+		CE4082892E80F73C009A7932 /*  ScheduleConsultationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082882E80F73C009A7932 /*  ScheduleConsultationSheet.swift */; };
 		CE6EE0642E7D0917004A386D /* SymptomEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0632E7D0917004A386D /* SymptomEntry.swift */; };
 		CE6EE0662E7D0B38004A386D /*  DoctorNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */; };
 		CE9ED8962E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */; };
@@ -70,6 +72,8 @@
 
 /* Begin PBXFileReference section */
 		CE4082842E7F9794009A7932 /*  DoctorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorManager.swift"; sourceTree = "<group>"; };
+		CE4082862E80D0E9009A7932 /*  DoctorProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorProfileDetailView.swift"; sourceTree = "<group>"; };
+		CE4082882E80F73C009A7932 /*  ScheduleConsultationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ScheduleConsultationSheet.swift"; sourceTree = "<group>"; };
 		CE6EE0632E7D0917004A386D /* SymptomEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomEntry.swift; sourceTree = "<group>"; };
 		CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorNotificationManager.swift"; sourceTree = "<group>"; };
 		CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SymptomEntryModel.swift"; sourceTree = "<group>"; };
@@ -262,6 +266,8 @@
 				CED7D4A72E7A61F9009C2F49 /*  WelcomeView.swift */,
 				CED7D4AD2E7AC8DC009C2F49 /*  MapMeetingView.swift */,
 				CEEFCDDB2E7C681200DF93F3 /*  ConsultDoctorView.swift */,
+				CE4082862E80D0E9009A7932 /*  DoctorProfileDetailView.swift */,
+				CE4082882E80F73C009A7932 /*  ScheduleConsultationSheet.swift */,
 			);
 			path = " Views ";
 			sourceTree = "<group>";
@@ -436,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4082892E80F73C009A7932 /*  ScheduleConsultationSheet.swift in Sources */,
 				CE9ED8982E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */,
 				CEF114392E7BC1540013CB41 /*  PersistenceController.swift in Sources */,
 				CED7D4742E797079009C2F49 /*  LoginView.swift in Sources */,
@@ -447,6 +454,7 @@
 				CED7D4A82E7A61F9009C2F49 /*  WelcomeView.swift in Sources */,
 				CE6EE0662E7D0B38004A386D /*  DoctorNotificationManager.swift in Sources */,
 				CEEFCDDE2E7CCBDC00DF93F3 /*  NotificationManager.swift in Sources */,
+				CE4082872E80D0E9009A7932 /*  DoctorProfileDetailView.swift in Sources */,
 				CED7D4782E797130009C2F49 /*   SymptomCheckerView.swift in Sources */,
 				CED7D4AE2E7AC8DC009C2F49 /*  MapMeetingView.swift in Sources */,
 				CEF1143D2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift in Sources */,

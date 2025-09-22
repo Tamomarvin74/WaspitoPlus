@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
+import UserNotifications
 
-// MARK: - ConsultDoctorView
 struct ConsultDoctorView: View {
     @EnvironmentObject var feedVM: FeedViewModel
 
@@ -16,15 +16,18 @@ struct ConsultDoctorView: View {
     ]
 
     private let allDoctors: [Doctor] = [
-        Doctor(id: UUID(), name: "Dr. Alice Smith", phone: "679093234", isOnline: true, hospitalName: "Buea Regional Hospital", specialties: ["Fever", "Cough"], coordinate: CLLocationCoordinate2D(latitude: 4.1482, longitude: 9.23653)),
-        Doctor(id: UUID(), name: "Dr. James", phone: "645321276", isOnline: true, hospitalName: "Saint Luke's Medical Center", specialties: ["Headache", "Back Pain"], coordinate: CLLocationCoordinate2D(latitude: 4.165686, longitude: 9.273408))
+        Doctor(id: UUID(), name: "Dr. Alice Smith", phone: "679093234", isOnline: true,
+               hospitalName: "Douala General Hospital", specialties: ["Fever", "Cough"],
+               coordinate: CLLocationCoordinate2D(latitude: 4.0511, longitude: 9.7679)),
+        Doctor(id: UUID(), name: "Dr. James", phone: "645321276", isOnline: true,
+               hospitalName: "Laquintinie Hospital", specialties: ["Headache", "Back Pain"],
+               coordinate: CLLocationCoordinate2D(latitude: 4.0530, longitude: 9.7386))
     ]
 
     var body: some View {
         VStack(spacing: 16) {
             Text("Request a Consultation")
-                .font(.title2)
-                .bold()
+                .font(.title2).bold()
                 .padding(.top, 10)
 
             Picker("Select Illness", selection: $selectedIllness) {
@@ -62,11 +65,9 @@ struct ConsultDoctorView: View {
                             VStack(alignment: .leading) {
                                 Text(doc.name).bold()
                                 Text(doc.specialties.joined(separator: ", "))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                                    .font(.caption).foregroundColor(.secondary)
                                 Text(doc.hospitalName ?? "")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
+                                    .font(.caption2).foregroundColor(.gray)
                             }
                             Spacer()
                             Text(doc.isOnline ? "Online" : "Offline")
@@ -117,81 +118,26 @@ struct ConsultDoctorView: View {
     }
 
     private func scheduleConsultation(with doctor: Doctor, at date: Date) {
-        DispatchQueue.main.async {
-            // Call your feedVM functions
-            // Make sure these exist in FeedViewModel
-            // Example:
-            // feedVM.markConsultationScheduled()
-            // feedVM.showLocationHeartbeat = true
+         NotificationService.shared.scheduleNotification(
+            id: UUID().uuidString,
+            title: "Doctor Consultation Reminder",
+            body: "Your consultation with \(doctor.name) is coming up!",
+            date: date
+        )
+
+         DispatchQueue.main.async {
+            feedVM.markConsultationScheduled()
+            feedVM.showLocationHeartbeat = true
+            feedVM.triggerReminder(message: "Your consultation with \(doctor.name) is scheduled for \(formattedDate(date)).")
+            chosenDoctor = doctor
         }
     }
-}
-
-// MARK: - ScheduleConsultationSheet
-struct ScheduleConsultationSheet: View {
-    var doctor: Doctor
-    var defaultDate: Date
-    @EnvironmentObject var feedVM: FeedViewModel
-    @Environment(\.dismiss) var dismiss
-    @State private var date: Date
-    @State private var region: MKCoordinateRegion
-    var onSchedule: (Date) -> Void
-
-    init(doctor: Doctor, defaultDate: Date, onSchedule: @escaping (Date) -> Void) {
-        self.doctor = doctor
-        self.defaultDate = defaultDate
-        self.onSchedule = onSchedule
-        _date = State(initialValue: defaultDate)
-        _region = State(initialValue: MKCoordinateRegion(center: doctor.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-    }
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Doctor")) {
-                    Text(doctor.name).bold()
-                    Text(doctor.specialties.joined(separator: ", "))
-                        .font(.caption)
-                }
-                Section(header: Text("Choose time")) {
-                    DatePicker("Appointment time", selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
-                        .datePickerStyle(.compact)
-                }
-                Section(header: Text("Location")) {
-                    Map(coordinateRegion: $region, annotationItems: [doctor]) { d in
-                        MapAnnotation(coordinate: d.coordinate) {
-                            Image(systemName: "mappin.circle.fill")
-                                .foregroundColor(.red)
-                                .font(.title)
-                        }
-                    }
-                    .frame(height: 200)
-                    .cornerRadius(8)
-                }
-            }
-            .navigationTitle("Schedule")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Schedule") {
-                        onSchedule(date)
-                        dismiss()
-                    }
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Preview
-struct ConsultDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ConsultDoctorView()
-                .environmentObject(FeedViewModel())
-        }
+    
+     private func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
