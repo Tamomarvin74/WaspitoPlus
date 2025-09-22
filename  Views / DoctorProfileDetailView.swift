@@ -254,15 +254,19 @@ struct DoctorProfileDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DoctorProfileDetailView(
+
                 doctor: Doctor(
                     name: "Dr Test",
                     phone: "555",
-                    isOnline: true,
                     hospitalName: "Test Hosp",
-                    specialties: ["Fever"],
+                    city: "Yaoundé",
+                    specialties: ["Fever"],   
                     coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-                    city: "Yaoundé"
-                ),
+                    isOnline: true
+                )
+
+
+,
                 illness: "Fever"
             )
         }

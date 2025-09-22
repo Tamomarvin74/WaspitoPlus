@@ -1,70 +1,99 @@
+//
+//  DoctorManager.swift
+//  WaspitoPlus
+//
+//  Created by Tamo Marvin Achiri on 9/22/25.
+//
+
 import Foundation
 import SwiftUI
 import CoreLocation
 
 @MainActor
 class DoctorManager: ObservableObject {
-    @Published private(set) var doctors: [Doctor] = []
-
-    var onlineDoctors: [Doctor] { doctors.filter { $0.isOnline } }
-
-    private var refreshTask: Task<Void, Never>? = nil
-
-    func addDoctor(_ doctor: Doctor) {
-        doctors.append(doctor)
+    @Published var doctors: [Doctor] = []
+    @Published var onlineDoctors: [Doctor] = []
+    
+    private var timer: Timer?
+    
+    init() {
+        loadSampleDoctors()
+        startAutoRefresh()
     }
-
-    func updateDoctor(_ doctor: Doctor) {
-        guard let index = doctors.firstIndex(where: { $0.id == doctor.id }) else { return }
-        doctors[index] = doctor
-    }
-
-    func removeDoctor(_ doctor: Doctor) {
-        doctors.removeAll { $0.id == doctor.id }
-    }
-
+    
     func loadSampleDoctors() {
-
         doctors = [
-            Doctor(name: "Dr. Samuel Mbarga", phone: "677123456", isOnline: true, hospitalName: "Yaoundé Central Hospital", specialties: ["Malaria", "Fever", "Infectious Diseases"], coordinate: CLLocationCoordinate2D(latitude: 3.848, longitude: 11.502), city: "Yaoundé", avatar: nil, messengerLink: URL(string: "https://m.me/DrSamuelMbarga")),
-            Doctor(name: "Dr. Aisha Ngassa", phone: "699987654", isOnline: false, hospitalName: "Douala General Hospital", specialties: ["Pediatrics", "Flu", "Fever"], coordinate: CLLocationCoordinate2D(latitude: 4.051, longitude: 9.767), city: "Douala", avatar: nil, messengerLink: URL(string: "https://m.me/DrAishaNgassa")),
-            Doctor(name: "Dr. Paul Etoundi", phone: "676234567", isOnline: true, hospitalName: "Buea Regional Hospital", specialties: ["Malaria", "Hypertension"], coordinate: CLLocationCoordinate2D(latitude: 4.159, longitude: 9.236), city: "Buea", avatar: nil, messengerLink: URL(string: "https://m.me/DrPaulEtoundi")),
-            Doctor(name: "Dr. Rose Tchouakeu", phone: "675112233", isOnline: true, hospitalName: "Bamenda Regional Clinic", specialties: ["General Medicine", "Fever"], coordinate: CLLocationCoordinate2D(latitude: 5.963, longitude: 10.157), city: "Bamenda", avatar: nil, messengerLink: URL(string: "https://m.me/DrRoseT")),
-            Doctor(name: "Dr. Daniel Ngwa", phone: "677445566", isOnline: false, hospitalName: "Garoua Central", specialties: ["Pediatrics"], coordinate: CLLocationCoordinate2D(latitude: 9.301, longitude: 13.398), city: "Garoua", avatar: nil, messengerLink: URL(string: "https://m.me/DrDanielNgwa")),
-            Doctor(name: "Dr. Marie N.", phone: "699334455", isOnline: true, hospitalName: "Maroua Clinic", specialties: ["Dermatology"], coordinate: CLLocationCoordinate2D(latitude: 10.595, longitude: 14.324), city: "Maroua", avatar: nil, messengerLink: URL(string: "https://m.me/DrMarieN"))
+            Doctor(
+                name: "Dr. Javis",
+                hospitalName: "Douala General Hospital",
+                city: "Douala",
+                specialties: ["Fever", "Cold", "Flu"],
+                coordinate: CLLocationCoordinate2D(latitude: 4.05, longitude: 9.75),
+                avatar: nil,
+                imageURL: URL(string: "https://randomuser.me/api/portraits/men/43.jpg"),
+                isOnline: Bool.random()
+            ),
+            Doctor(
+                name: "Dr. Amina",
+                hospitalName: "Yaoundé Central",
+                city: "Yaoundé",
+                specialties: ["Headache", "Allergy"],
+                coordinate: CLLocationCoordinate2D(latitude: 3.87, longitude: 11.52),
+                avatar: nil,
+                imageURL: URL(string: "https://randomuser.me/api/portraits/women/32.jpg"),
+                isOnline: Bool.random()
+            ),
+            Doctor(
+                name: "Dr. Samuel",
+                hospitalName: "Bamenda Clinic",
+                city: "Bamenda",
+                specialties: ["Stomach Pain", "Cold", "Flu"],
+                coordinate: CLLocationCoordinate2D(latitude: 5.96, longitude: 10.15),
+                avatar: nil,
+                imageURL: URL(string: "https://randomuser.me/api/portraits/men/56.jpg"),
+                isOnline: Bool.random()
+            ),
+            Doctor(
+                name: "Dr. Grace",
+                hospitalName: "Kribi Health Center",
+                city: "Kribi",
+                specialties: ["Skin Rash", "Fever"],
+                coordinate: CLLocationCoordinate2D(latitude: 2.95, longitude: 9.91),
+                avatar: nil,
+                imageURL: URL(string: "https://randomuser.me/api/portraits/women/65.jpg"),
+                isOnline: Bool.random()
+            )
         ]
+        
+         onlineDoctors = doctors.filter { $0.isOnline }
     }
-
-
+    
+    func refreshOnlineNow() {
+         doctors.indices.forEach { idx in
+            doctors[idx].isOnline.toggle()
+        }
+        onlineDoctors = doctors.filter { $0.isOnline }
+    }
+    
     func startAutoRefresh() {
-        refreshTask?.cancel()
-        refreshTask = Task.detached { [weak self] in
-            guard let self = self else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(nanoseconds: UInt64(300) * 1_000_000_000) // 300s = 5m
-                await self.randomizeOnlineDoctors()
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.refreshOnlineNow()
             }
         }
     }
-
-    func refreshOnlineNow() {
-        Task { await randomizeOnlineDoctors() }
+    
+    func doctorsFor(symptom: String) -> [Doctor] {
+        doctors.filter { $0.specialties.contains { $0.localizedCaseInsensitiveContains(symptom) } && $0.isOnline }
     }
-
-    private func randomizeOnlineDoctors() {
-         var new = doctors
- 
-        let count = new.count
-        guard count > 0 else { return }
-        let onlineCount = max(1, Int.random(in: 1...min(4, count)))
-
-        var indices = Array(new.indices)
-        indices.shuffle()
-        let onlineSet = Set(indices.prefix(onlineCount))
-        for i in new.indices {
-            new[i].isOnline = onlineSet.contains(i)
-        }
-        doctors = new
+    
+    func sendPatientRequest(to doctor: Doctor, patientPhone: String, message: String?) {
+        print("Patient request sent to \(doctor.name): \(message ?? "No message")")
+    }
+    
+    func doctorIsAvailable(_ doctor: Doctor) -> Bool {
+        return doctor.isOnline
     }
 }
 

@@ -95,23 +95,32 @@ final class FeedViewModel: ObservableObject {
     func loadSampleDoctors() {
         doctors = [
             Doctor(
+                id: UUID(),
                 name: "Dr. Smith",
                 phone: "123-456-7890",
-                isOnline: true,
                 hospitalName: "City Hospital",
+                city: "Cityville",
                 specialties: ["Cardiologist"],
-                coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                avatar: nil,
+                imageURL: nil,
+                isOnline: true
             ),
             Doctor(
+                id: UUID(),
                 name: "Dr. Jane",
                 phone: "987-654-3210",
-                isOnline: false,
                 hospitalName: "General Clinic",
+                city: "Townsville",
                 specialties: ["Dermatologist"],
-                coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                avatar: nil,
+                imageURL: nil,
+                isOnline: false
             )
         ]
     }
+
 
     func loadOfflineEntries() {
         offlineEntries = [

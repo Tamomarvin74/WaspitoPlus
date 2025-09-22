@@ -1,125 +1,133 @@
-//
-//   DoctorsMapView.swift
-//  WaspitoPlus
-//
-//  Created by Tamo Marvin Achiri   on 9/22/25.
-//
-
- 
 import SwiftUI
 import MapKit
 
 struct DoctorsMapView: View {
     @EnvironmentObject var doctorManager: DoctorManager
+    
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 3.848, longitude: 11.5021), 
-        span: MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
+        center: CLLocationCoordinate2D(latitude: 4.05, longitude: 9.75),
+        span: MKCoordinateSpan(latitudeDelta: 3.5, longitudeDelta: 3.5)
     )
+    
     @State private var selectedDoctor: Doctor? = nil
-    @State private var showingDoctorSheet = false
-
+    @State private var showSymptomSheet = false
+    @State private var patientSymptom = ""
+    
+    @State private var showDoctorInteraction = false
+    @State private var showMedicationSheet = false
+    
     var body: some View {
-        ZStack {
-            Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
-                MapAnnotation(coordinate: doctor.coordinate) {
-                    DoctorMapAnnotation(doctor: doctor)
+        NavigationView {
+            ZStack {
+                Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
+                    MapAnnotation(coordinate: doctor.coordinate) {
+                        DoctorAnnotationView(
+                            doctor: doctor,
+                            isActive: patientSymptom.isEmpty || doctor.canTreat(symptom: patientSymptom)
+                        )
                         .onTapGesture {
-                            selectedDoctor = doctor
-                            showingDoctorSheet = true
+                            if patientSymptom.isEmpty || doctor.canTreat(symptom: patientSymptom) {
+                                selectedDoctor = doctor
+                                showSymptomSheet = true
+                            }
                         }
+                    }
+                }
+                .ignoresSafeArea()
+                
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            region.center = CLLocationCoordinate2D(latitude: 4.05, longitude: 9.75)
+                        }) {
+                            Image(systemName: "location.fill")
+                                .padding(10)
+                                .background(Color.white.opacity(0.9))
+                                .clipShape(Circle())
+                        }
+                        .padding()
+                    }
+                    Spacer()
                 }
             }
-            .ignoresSafeArea()
-        }
-        .sheet(item: $selectedDoctor) { doc in
-            DoctorDetailSheet(doctor: doc)
+            .navigationTitle("Doctors Map")
+            .sheet(isPresented: $showSymptomSheet) {
+                if let doctor = selectedDoctor {
+                    SymptomInputSheet(
+                        doctor: doctor,
+                        patientSymptom: $patientSymptom,
+                        showSheet: $showSymptomSheet,
+                        showDoctorInteraction: $showDoctorInteraction
+                    )
+                }
+            }
+            .sheet(isPresented: $showDoctorInteraction) {
+                if let doctor = selectedDoctor {
+                    DoctorInteractionSheet(
+                        doctor: doctor,
+                        showSheet: $showDoctorInteraction,
+                        showMedicationSheet: $showMedicationSheet
+                    )
+                }
+            }
+            .sheet(isPresented: $showMedicationSheet) {
+                MedicationDeliverySheet(showSheet: $showMedicationSheet)
+            }
         }
     }
 }
 
-
-struct DoctorMapAnnotation: View {
+// MARK: - Doctor Annotation with glowing pulse
+struct DoctorAnnotationView: View {
     let doctor: Doctor
-    @State private var animate = false
-
+    let isActive: Bool
+    @State private var pulse = false
+    
     var body: some View {
         ZStack {
-            Circle()
-                .stroke(Color.green.opacity(0.6), lineWidth: 2)
-                .frame(width: 60, height: 60)
-                .scaleEffect(animate ? 1.4 : 1)
-                .opacity(animate ? 0 : 0.6)
-                .onAppear {
-                    withAnimation(Animation.easeOut(duration: 1.5).repeatForever(autoreverses: false)) {
-                        animate = true
+            if isActive {
+                Circle()
+                    .fill(Color.green.opacity(0.25))
+                    .frame(width: 70, height: 70)
+                    .scaleEffect(pulse ? 1.2 : 1)
+                    .opacity(pulse ? 0 : 0.6)
+                    .onAppear {
+                        withAnimation(Animation.easeOut(duration: 1.4).repeatForever(autoreverses: false)) {
+                            pulse = true
+                        }
                     }
-                }
-
+            }
+            
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 48, height: 48)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.green, lineWidth: 2))
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .opacity(isActive ? 1 : 0.4)
+            } else if let url = doctor.imageURL {
+                AsyncImage(url: url) { phase in
+                    if let img = phase.image {
+                        img.resizable()
+                            .scaledToFill()
+                            .frame(width: 48, height: 48)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                            .opacity(isActive ? 1 : 0.4)
+                    } else {
+                        Circle().fill(Color.green).frame(width: 48, height: 48).opacity(isActive ? 1 : 0.4)
+                    }
+                }
             } else {
                 Circle()
                     .fill(Color.green)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 48, height: 48)
                     .overlay(Text(String(doctor.name.prefix(1))).foregroundColor(.white))
+                    .opacity(isActive ? 1 : 0.4)
             }
         }
     }
 }
 
-
-struct DoctorDetailSheet: View {
-    let doctor: Doctor
-    @State private var askAvailability = false
-    @State private var patientPhone: String = ""
-    @State private var sendPhone = false
-
-    var body: some View {
-        VStack(spacing: 20) {
-            if let avatar = doctor.avatar {
-                Image(uiImage: avatar)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(Circle())
-            }
-
-            Text(doctor.name).font(.title2).bold()
-            Text("Hospital: \(doctor.hospitalName ?? "Unknown")").foregroundColor(.secondary)
-
-            if !askAvailability {
-                Button("Ask if available") {
-                    askAvailability = true
-                }
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-            } else if !sendPhone {
-                Text("Doctor is available now ✅")
-                TextField("Enter your phone number", text: $patientPhone)
-                    .keyboardType(.phonePad)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                Button("Send Number for Call") {
-                    sendPhone = true
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-            } else {
-                Text("☎️ Your number has been sent. Expect a call shortly.")
-                    .foregroundColor(.green)
-            }
-
-            Spacer()
-        }
-        .padding()
-    }
-}

@@ -404,7 +404,7 @@ struct HomeView: View {
     }
 }
 
- struct DoctorTopCard: View {
+struct DoctorTopCard: View {
     let doctor: Doctor
     
     private func avatarURL(for doctor: Doctor) -> URL? {
@@ -422,6 +422,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            // Doctor Avatar
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()
@@ -451,10 +452,10 @@ struct HomeView: View {
                     .overlay(Text(doctor.name.prefix(1)).foregroundColor(.white).font(.title2))
             }
             
+            // Doctor Info
             Text(doctor.name.isEmpty ? "Unknown Doctor" : doctor.name).font(.headline)
             Text((doctor.hospitalName?.isEmpty == false ? doctor.hospitalName! : "Unknown Hospital"))
                 .font(.subheadline).foregroundColor(.gray)
-            
             Text(doctor.city.isEmpty ? "City: Unknown" : "City: \(doctor.city)")
                 .font(.caption).foregroundColor(.blue)
             
@@ -464,27 +465,12 @@ struct HomeView: View {
                     .foregroundColor(.secondary)
             }
             
+            // Online Status
             HStack {
                 Circle().fill(doctor.isOnline ? Color.green : Color.red).frame(width: 8, height: 8)
                 Text(doctor.isOnline ? "Online" : "Offline")
                     .font(.caption)
                     .foregroundColor(doctor.isOnline ? .green : .red)
-            }
-            
-            if let link = doctor.messengerLink, doctor.isOnline {
-                Button(action: {
-                    if UIApplication.shared.canOpenURL(link) {
-                        UIApplication.shared.open(link)
-                    }
-                }) {
-                    Text("Message")
-                        .font(.caption)
-                        .padding(6)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(6)
-                }
             }
         }
         .padding()
@@ -494,6 +480,7 @@ struct HomeView: View {
         .frame(width: 180)
     }
 }
+
 
 struct PostCardView: View {
     @Binding var post: Post

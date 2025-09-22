@@ -14,15 +14,34 @@ struct ConsultDoctorView: View {
     private let illnesses = [
         "Fever", "Cough", "Headache", "Skin Rash", "Stomach Pain", "Back Pain", "Shortness of Breath"
     ]
-
     private let allDoctors: [Doctor] = [
-        Doctor(id: UUID(), name: "Dr. Alice Smith", phone: "679093234", isOnline: true,
-               hospitalName: "Douala General Hospital", specialties: ["Fever", "Cough"],
-               coordinate: CLLocationCoordinate2D(latitude: 4.0511, longitude: 9.7679)),
-        Doctor(id: UUID(), name: "Dr. James", phone: "645321276", isOnline: true,
-               hospitalName: "Laquintinie Hospital", specialties: ["Headache", "Back Pain"],
-               coordinate: CLLocationCoordinate2D(latitude: 4.0530, longitude: 9.7386))
+        Doctor(
+            id: UUID(),
+            name: "Dr. Alice Smith",
+            phone: "679093234",
+            hospitalName: "Douala General Hospital",
+            city: "Douala",
+            specialties: ["Fever", "Cough"],
+            coordinate: CLLocationCoordinate2D(latitude: 4.0511, longitude: 9.7679),
+            avatar: nil,
+            imageURL: nil,
+            isOnline: true
+        ),
+        Doctor(
+            id: UUID(),
+            name: "Dr. James",
+            phone: "645321276",
+            hospitalName: "Laquintinie Hospital",
+            city: "Douala",
+            specialties: ["Headache", "Back Pain"],
+            coordinate: CLLocationCoordinate2D(latitude: 4.0530, longitude: 9.7386),
+            avatar: nil,
+            imageURL: nil,
+            isOnline: true
+        )
     ]
+
+
 
     var body: some View {
         VStack(spacing: 16) {
