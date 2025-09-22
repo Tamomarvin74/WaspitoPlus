@@ -7,7 +7,7 @@
 import SwiftUI
 import PhotosUI
 import CoreLocation
-import FirebaseAuth
+import FirebaseAuth 
 import AVKit
 
 struct HomeView: View {
@@ -287,13 +287,19 @@ struct HomeView: View {
 
 
 
-            Button(action: { feedVM.showLocation.toggle() }) {
+            Button(action: {
+                feedVM.showLocation.toggle()
+            }) {
                 Image(systemName: "globe")
                     .foregroundColor(.green)
                     .scaleEffect(feedVM.showLocationHeartbeat ? 1.2 : 1)
                     .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true),
                                value: feedVM.showLocationHeartbeat)
             }
+            .sheet(isPresented: $feedVM.showLocation) {
+                DoctorsMapView().environmentObject(doctorManager)
+            }
+
             if let avatar = feedVM.currentUserAvatarImage {
                 Image(uiImage: avatar)
                     .resizable()
