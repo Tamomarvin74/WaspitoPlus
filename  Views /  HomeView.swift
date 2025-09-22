@@ -127,8 +127,7 @@ struct HomeView: View {
         }
     }
     
-    // MARK: Home Tab
-    private var homeTab: some View {
+     private var homeTab: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -168,8 +167,7 @@ struct HomeView: View {
         }
     }
     
-    // MARK: Profile & Post Menu
-    private var profileAndPostMenu: some View {
+     private var profileAndPostMenu: some View {
         HStack(spacing: 12) {
             PhotosPicker(selection: $avatarPickerItem, matching: .images, photoLibrary: .shared()) {
                 if let image = feedVM.currentUserAvatarImage {
@@ -209,8 +207,7 @@ struct HomeView: View {
         .padding(.top, 8)
     }
     
-    // MARK: Online Doctors
-    private var onlineDoctorsSection: some View {
+     private var onlineDoctorsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text("Available Doctors").font(.headline)
@@ -239,8 +236,7 @@ struct HomeView: View {
         }
     }
     
-    // MARK: Posts
-    private var postsAndSearchSection: some View {
+     private var postsAndSearchSection: some View {
         VStack(spacing: 16) {
             ForEach(feedVM.filteredPosts, id: \.id) { filteredPost in
                 if let binding = bindingForPost(filteredPost) {
@@ -257,13 +253,11 @@ struct HomeView: View {
         return Binding(get: { feedVM.posts[idx] }, set: { feedVM.posts[idx] = $0 })
     }
     
-    // MARK: Toolbar
-    private var topToolbar: some ToolbarContent {
+     private var topToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            // Bell button in topToolbar
-            Button(action: {
+             Button(action: {
                 withAnimation {
-                    feedVM.showNotifications.toggle() // Show/hide overlay
+                    feedVM.showNotifications.toggle()
                 }
                 
                 if feedVM.showNotifications {
@@ -313,8 +307,7 @@ struct HomeView: View {
         }
     }
     
-    // MARK: Post Handling
-    private func handlePickedItems(_ newItems: [PhotosPickerItem]) {
+     private func handlePickedItems(_ newItems: [PhotosPickerItem]) {
         guard let item = newItems.first else { return }
         Task {
             if item.supportedContentTypes.contains(.image),
@@ -375,8 +368,7 @@ struct HomeView: View {
         newPostVideoURL = nil
     }
     
-    // MARK: Settings Tab
-    private var settingsTab: some View {
+     private var settingsTab: some View {
         NavigationView {
             VStack(spacing: 20) {
                 Button(action: { showSignOutAlert = true }) {
@@ -406,8 +398,7 @@ struct HomeView: View {
     }
 }
 
-// MARK: Doctor Card
-struct DoctorTopCard: View {
+ struct DoctorTopCard: View {
     let doctor: Doctor
     
     private func avatarURL(for doctor: Doctor) -> URL? {
@@ -505,7 +496,7 @@ struct PostCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Header with author info and share button
+ 
             HStack(alignment: .top) {
                 HStack(spacing: 8) {
                     Circle()
@@ -533,21 +524,18 @@ struct PostCardView: View {
                 }
             }
 
-            // Post title
-            if !post.title.isEmpty {
+             if !post.title.isEmpty {
                 Text(post.title)
                     .font(.subheadline)
                     .foregroundColor(.primary)
             }
 
-            // Post content
-            if !post.content.isEmpty {
+             if !post.content.isEmpty {
                 Text(post.content)
                     .font(.body)
             }
 
-            // Post image
-            if let img = post.image {
+             if let img = post.image {
                 Image(uiImage: img)
                     .resizable()
                     .scaledToFill()
@@ -556,15 +544,13 @@ struct PostCardView: View {
                     .cornerRadius(8)
             }
 
-            // Post video
-            if let videoURL = post.videoURL {
+             if let videoURL = post.videoURL {
                 VideoPlayer(player: AVPlayer(url: videoURL))
                     .frame(height: 220)
                     .cornerRadius(8)
             }
 
-            // Likes, comments, views
-            HStack {
+             HStack {
                 Button(action: toggleLike) {
                     HStack(spacing: 6) {
                         Image(systemName: isLikedLocal ? "hand.thumbsup.fill" : "hand.thumbsup")
@@ -588,16 +574,14 @@ struct PostCardView: View {
             .padding(.vertical, 6)
             .foregroundColor(.gray)
 
-            // Comment input
-            HStack {
+             HStack {
                 TextField("Write a comment...", text: $newComment)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Post") { addComment() }
                     .padding(.horizontal, 6)
             }
 
-            // Existing comments
-            if !post.comments.isEmpty {
+             if !post.comments.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
                     ForEach(Array(post.comments.enumerated()), id: \.offset) { _, comment in
                         HStack(alignment: .top, spacing: 8) {
@@ -620,8 +604,7 @@ struct PostCardView: View {
         .onAppear { post.views += 1 }
     }
 
-    // MARK: Helpers
-    private func dateFormatted(_ d: Date) -> String {
+     private func dateFormatted(_ d: Date) -> String {
         let df = DateFormatter()
         df.dateStyle = .medium
         return df.string(from: d)
@@ -658,8 +641,7 @@ struct PostCardView: View {
 }
 
 
-// MARK: Preview
-struct HomeView_Previews: PreviewProvider {
+ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }

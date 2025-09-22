@@ -5,24 +5,41 @@ struct DoctorProfileDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     let doctor: Doctor
     let illness: String
-    
+
     @State private var messages: [(String, Bool)] = []
     @State private var inputText: String = ""
     @State private var consultationStep: Int = 0
     @State private var showPrescriptionOptions: Bool = false
     @State private var prescribedMedications: [String] = []
     @State private var selectedMedications: [String] = []
-
-    private let medicationsByIllness: [String: [String]] = [
-        "Fever": ["Paracetamol 500mg", "Ibuprofen 200mg"],
-        "Cough": ["Cough Syrup", "Honey & Lemon Tea"],
-        "Headache": ["Paracetamol 500mg", "Rest & Hydration"],
-        "Skin Rash": ["Topical Ointment", "Antihistamines"]
-    ]
+    @State private var awaitingAgreement: Bool = false
     
+    private let medicationsByIllness: [String: [String]] = [
+        "Fever": ["Paracetamol 500mg (every 6–8 hours)", "Ibuprofen 200mg (after meals)", "Adequate Rest & Hydration"],
+        "Cough": ["Cough Syrup (Dextromethorphan)", "Honey & Lemon Tea", "Steam Inhalation"],
+        "Headache": ["Paracetamol 500mg", "Ibuprofen 400mg", "Rest in Quiet/Dark Room"],
+        "Skin Rash": ["Topical Hydrocortisone Cream", "Antihistamines (Cetirizine)", "Keep Skin Moisturized"],
+        "Malaria": ["Artemisinin-based Combination Therapy (ACT)", "Paracetamol for fever", "Adequate Hydration"],
+        "Typhoid": ["Ciprofloxacin 500mg (as prescribed)", "Amoxicillin", "ORS Solution for Rehydration"],
+        "Diabetes": ["Metformin 500mg", "Glipizide (oral)", "Low-sugar Diet & Exercise"],
+        "Hypertension": ["Amlodipine 5mg", "Losartan 50mg", "Low-salt Diet"],
+        "Asthma": ["Salbutamol Inhaler", "Steroid Inhaler (Budesonide)", "Avoid Triggers"],
+        "Flu": ["Paracetamol", "Vitamin C Supplements", "Rest & Warm Fluids"],
+        "Cold": ["Decongestant (Pseudoephedrine)", "Warm Fluids", "Vitamin C Lozenges"],
+        "Stomach Ache": ["Antacids", "Omeprazole 20mg", "Plenty of Water"],
+        "Diarrhea": ["ORS Solution", "Metronidazole (if bacterial)", "Probiotics"],
+        "Constipation": ["Laxatives (Lactulose)", "High-fiber Diet", "Adequate Water Intake"],
+        "Allergies": ["Antihistamines (Loratadine)", "Nasal Spray", "Avoid Allergens"],
+        "COVID-19": ["Paracetamol for Fever", "Zinc Supplements", "Rest & Isolation"],
+        "Depression": ["SSRIs (Fluoxetine)", "Therapy Sessions", "Exercise & Social Support"],
+        "Anxiety": ["Benzodiazepines (as prescribed)", "Cognitive Behavioral Therapy (CBT)", "Relaxation Techniques"],
+        "Insomnia": ["Melatonin Supplements", "Sleep Hygiene", "Avoid Caffeine at Night"]
+    ]
+
+
     var body: some View {
         VStack {
-             HStack {
+            HStack {
                 Button(action: { presentationMode.wrappedValue.dismiss() }) {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.black)
@@ -30,28 +47,41 @@ struct DoctorProfileDetailView: View {
                 Spacer()
             }
             .padding()
-            
-             VStack(spacing: 12) {
+
+            VStack(spacing: 12) {
                 if let avatar = doctor.avatar {
-                    Image(uiImage: avatar)
+                     Image(uiImage: avatar)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 110, height: 110)
                         .clipShape(Circle())
-                } else {
-                    AsyncImage(url: URL(string: "https://randomuser.me/api/portraits/med/lego/\(abs(doctor.name.hashValue) % 10).jpg")) { phase in
+                } else if let imageURL = doctor.imageURL {
+                     AsyncImage(url: imageURL) { phase in
                         if let img = phase.image {
                             img.resizable()
                                 .scaledToFill()
                                 .frame(width: 110, height: 110)
                                 .clipShape(Circle())
+                        } else if phase.error != nil {
+                            Circle()
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 110, height: 110)
+                                .overlay(Text("No Image").font(.caption))
                         } else {
-                            Circle().fill(Color.gray.opacity(0.2))
+                            ProgressView()
                                 .frame(width: 110, height: 110)
                         }
                     }
+                } else {
+                     Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 110, height: 110)
+                        .overlay(Image(systemName: "person.fill")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 40)))
                 }
-                
+
+
                 Text(doctor.name).font(.title2).bold()
                 if let hosp = doctor.hospitalName {
                     Text(hosp).font(.subheadline).foregroundColor(.secondary)
@@ -61,10 +91,10 @@ struct DoctorProfileDetailView: View {
                     .foregroundColor(.green)
             }
             .padding(.bottom, 8)
-            
+
             Divider()
-            
-             ScrollViewReader { proxy in
+
+            ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 8) {
                         ForEach(Array(messages.enumerated()), id: \.offset) { idx, msg in
@@ -80,12 +110,11 @@ struct DoctorProfileDetailView: View {
                             .padding(.horizontal)
                             .id(idx)
                         }
-                        
-                        // MARK: - Prescription Options
+
                         if showPrescriptionOptions {
                             VStack(spacing: 8) {
                                 Text("Doctor's Prescription:").bold()
-                                
+
                                 if let meds = medicationsByIllness[illness] {
                                     ForEach(meds, id: \.self) { med in
                                         Button(action: {
@@ -103,7 +132,7 @@ struct DoctorProfileDetailView: View {
                                                 .cornerRadius(8)
                                         }
                                     }
-                                    
+
                                     if !selectedMedications.isEmpty {
                                         Button(action: confirmMedications) {
                                             Text("Confirm Medications")
@@ -115,6 +144,10 @@ struct DoctorProfileDetailView: View {
                                         }
                                         .padding(.top, 5)
                                     }
+                                } else {
+                                    Text("No prescriptions available for \(illness).")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
                             }
                             .padding(.horizontal)
@@ -127,8 +160,8 @@ struct DoctorProfileDetailView: View {
                     }
                 }
             }
-            
-             HStack {
+
+            HStack {
                 TextField("Message \(doctor.name)...", text: $inputText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Send") {
@@ -143,7 +176,7 @@ struct DoctorProfileDetailView: View {
             startConsultation()
         }
     }
-    
+
     private func sendMessage() {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
@@ -152,28 +185,37 @@ struct DoctorProfileDetailView: View {
         inputText = ""
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if consultationStep == 4 {
+             if consultationStep == 4 || awaitingAgreement {
                 let patientReply = text.lowercased()
-                let agreementKeywords = ["ok", "yes", "sure"]
-                
-                 
-                if agreementKeywords.contains(where: { patientReply.contains($0) }) {
+ 
+                let tokens = patientReply
+                    .components(separatedBy: CharacterSet.alphanumerics.inverted)
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
+
+                let agreementKeywords: Set<String> = ["ok", "yes", "sure", "yeah", "yep", "y", "okay", "okey"]
+
+                if tokens.contains(where: { agreementKeywords.contains($0) }) {
+ 
+                    awaitingAgreement = false
                     showPrescriptionOptions = true
                 } else {
+
+                    awaitingAgreement = false
                     doctorRespond()
                 }
             } else {
-                doctorRespond()
+                 doctorRespond()
             }
         }
     }
 
-    
-     private func startConsultation() {
+    private func startConsultation() {
         messages.append(("Hello! I see you selected \(illness). Can you describe your main symptoms?", false))
         consultationStep = 1
+        awaitingAgreement = false
     }
-    
+
     private func doctorRespond() {
         switch consultationStep {
         case 1:
@@ -185,23 +227,24 @@ struct DoctorProfileDetailView: View {
         case 3:
             messages.append(("In the meantime, I can prescribe some basic medications to help relieve your symptoms. Do you want me to?", false))
             consultationStep = 4
+            awaitingAgreement = true
         case 4:
              break
         default:
             messages.append(("Remember to visit \(doctor.hospitalName ?? "the hospital") for a thorough check-up.", false))
         }
     }
-    
-     private func confirmMedications() {
+
+    private func confirmMedications() {
         for med in selectedMedications {
             messages.append(("Patient acknowledges: \(med)", true))
             prescribedMedications.append(med)
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             messages.append(("Great! \(selectedMedications.joined(separator: ", ")) should help with your symptoms. Take as directed.", false))
         }
-        
+
         selectedMedications.removeAll()
         showPrescriptionOptions = false
     }

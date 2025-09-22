@@ -9,7 +9,7 @@ struct SymptomCheckerView: View {
     @State private var patientName: String = ""
     @State private var askedName: Bool = false
     
-    @Binding var searchText: String // Expect a binding
+    @Binding var searchText: String
 
     var body: some View {
         VStack {
@@ -110,8 +110,7 @@ struct SymptomCheckerView: View {
             return
         }
 
-        // FIXED: Call the function without extra argument
-        let response = viewModel.processSymptomInput(trimmedInput)
+         let response = viewModel.processSymptomInput(trimmedInput)
         messages.append(Message(text: response, isUser: false))
 
         if viewModel.diagnosisComplete {
@@ -132,8 +131,7 @@ struct Message: Identifiable {
 
 struct SymptomCheckerView_Previews: PreviewProvider {
     static var previews: some View {
-        // FIXED: Provide a constant binding
-        SymptomCheckerView(searchText: .constant("fever"))
+         SymptomCheckerView(searchText: .constant("fever"))
     }
 }
 

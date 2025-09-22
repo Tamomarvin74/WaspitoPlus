@@ -11,8 +11,9 @@ struct Doctor: Identifiable, Codable {
     var specialties: [String]
     var coordinate: CLLocationCoordinate2D
     var city: String
-    var avatar: UIImage? = nil
-    var messengerLink: URL? = nil   
+    var avatar: UIImage? = nil      
+    var imageURL: URL? = nil
+    var messengerLink: URL? = nil
 
     init(
         id: UUID = UUID(),
@@ -24,6 +25,7 @@ struct Doctor: Identifiable, Codable {
         coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0),
         city: String = "",
         avatar: UIImage? = nil,
+        imageURL: URL? = nil,
         messengerLink: URL? = nil
     ) {
         self.id = id
@@ -35,11 +37,12 @@ struct Doctor: Identifiable, Codable {
         self.coordinate = coordinate
         self.city = city
         self.avatar = avatar
+        self.imageURL = imageURL
         self.messengerLink = messengerLink
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, name, phone, isOnline, hospitalName, specialties, latitude, longitude, city, messengerLink
+        case id, name, phone, isOnline, hospitalName, specialties, latitude, longitude, city, messengerLink, imageURL
     }
 
     init(from decoder: Decoder) throws {
@@ -53,6 +56,7 @@ struct Doctor: Identifiable, Codable {
         specialties = try container.decode([String].self, forKey: .specialties)
         city = try container.decode(String.self, forKey: .city)
         messengerLink = try container.decodeIfPresent(URL.self, forKey: .messengerLink)
+        imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
 
         let latitude = try container.decode(CLLocationDegrees.self, forKey: .latitude)
         let longitude = try container.decode(CLLocationDegrees.self, forKey: .longitude)
@@ -72,6 +76,7 @@ struct Doctor: Identifiable, Codable {
         try container.encode(specialties, forKey: .specialties)
         try container.encode(city, forKey: .city)
         try container.encodeIfPresent(messengerLink, forKey: .messengerLink)
+        try container.encodeIfPresent(imageURL, forKey: .imageURL)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
     }
