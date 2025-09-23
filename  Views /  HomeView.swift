@@ -7,7 +7,7 @@
 import SwiftUI
 import PhotosUI
 import CoreLocation
-import FirebaseAuth 
+import FirebaseAuth
 import AVKit
 
 struct HomeView: View {
@@ -24,6 +24,10 @@ struct HomeView: View {
     @State private var newPostText: String = ""
     @State private var newPostUIImage: UIImage? = nil
     @State private var newPostVideoURL: URL? = nil
+    
+    @State private var pharmacyEnabled: Bool = false
+    @State private var showPharmacyNotificationDot: Bool = false
+
     
     @State private var avatarPickerItem: PhotosPickerItem? = nil
     
@@ -51,6 +55,44 @@ struct HomeView: View {
             }
             .tabItem { Label("Consult", systemImage: "cross.case.fill") }
             .tag(3)
+            
+            
+            NavigationView {
+                if pharmacyEnabled {
+                    WaspitoPharmacyView()
+                        .navigationTitle("Pharmacy")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button(action: {
+                                    // Example: Open medication sheet
+                                    // Add your medication sheet logic here
+                                }) {
+                                    Image(systemName: "doc.text")
+                                        .foregroundColor(.green)
+                                }
+                            }
+                        }
+                } else {
+                    VStack(spacing: 16) {
+                        Image(systemName: "lock.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.gray)
+                        Text("Pharmacy will be enabled after consulting a doctor and requesting medication.")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemBackground))
+                }
+            }
+            .tabItem {
+                Label("Pharmacy", systemImage: "pills.fill")
+            }
+            .tag(4)
+            .disabled(!pharmacyEnabled)
+
+
             
             settingsTab
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
@@ -359,7 +401,7 @@ struct HomeView: View {
                 }
                 
                 if feedVM.showNotifications {
-                    feedVM.markNotificationsAsSeen()  
+                    feedVM.markNotificationsAsSeen()
                 }
             }) {
                 ZStack(alignment: .topTrailing) {
@@ -384,19 +426,26 @@ struct HomeView: View {
             }
 
 
-
             Button(action: {
                 feedVM.showLocation.toggle()
             }) {
                 Image(systemName: "globe")
                     .foregroundColor(.green)
                     .scaleEffect(feedVM.showLocationHeartbeat ? 1.2 : 1)
-                    .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true),
-                               value: feedVM.showLocationHeartbeat)
+                    .animation(
+                        .easeInOut(duration: 0.8).repeatForever(autoreverses: true),
+                        value: feedVM.showLocationHeartbeat
+                    )
             }
-            .sheet(isPresented: $feedVM.showLocation) {
-                DoctorsMapView().environmentObject(doctorManager)
+            .sheet(isPresented: $feedVM.showLocation, onDismiss: {
+                pharmacyEnabled = true
+                showPharmacyNotificationDot = true
+            }) {
+                DoctorsMapView(selectedDoctor: $feedVM.selectedDoctor)
+                    .environmentObject(doctorManager)
             }
+
+
 
             if let avatar = feedVM.currentUserAvatarImage {
                 Image(uiImage: avatar)
@@ -520,7 +569,7 @@ struct DoctorTopCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Doctor Avatar
+            // Doctor Avatar		
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()

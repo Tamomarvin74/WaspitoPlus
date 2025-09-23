@@ -17,7 +17,7 @@ struct SymptomInputSheet: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                Text("Enter your symptom for \(doctor.name)")
+                Text("  symptom for \(doctor.name)")
                     .font(.title2).bold()
                     .multilineTextAlignment(.center)
                 

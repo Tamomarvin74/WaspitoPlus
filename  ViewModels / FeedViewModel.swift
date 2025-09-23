@@ -19,6 +19,7 @@ final class FeedViewModel: ObservableObject {
 
     @Published var showLocation: Bool = false
     @Published var showLocationHeartbeat: Bool = false
+    @Published var selectedDoctor: Doctor? = nil  
 
     @Published var notifications: [String] = []
 
@@ -30,7 +31,7 @@ final class FeedViewModel: ObservableObject {
         loadOfflineEntries()
     }
 
-     var filteredPosts: [Post] {
+    var filteredPosts: [Post] {
         if searchText.isEmpty { return posts }
         return posts.filter {
             $0.title.lowercased().contains(searchText.lowercased()) ||
@@ -38,7 +39,7 @@ final class FeedViewModel: ObservableObject {
         }
     }
 
-     func performSearch(doctors externalDoctors: [Doctor]? = nil) {
+    func performSearch(doctors externalDoctors: [Doctor]? = nil) {
         let query = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else {
             searchResults = []
@@ -69,7 +70,7 @@ final class FeedViewModel: ObservableObject {
                         matchingEntries.map { .entry($0) }
     }
 
-     func addPost(_ post: Post) {
+    func addPost(_ post: Post) {
         posts.insert(post, at: 0)
         performSearch()
     }
@@ -86,12 +87,12 @@ final class FeedViewModel: ObservableObject {
         performSearch()
     }
 
-     func addDoctor(_ doc: Doctor) {
+    func addDoctor(_ doc: Doctor) {
         doctors.insert(doc, at: 0)
         performSearch()
     }
 
-     func loadOfflineEntries() {
+    func loadOfflineEntries() {
         offlineEntries = [
             SymptomEntry(
                 id: UUID(),
@@ -110,7 +111,7 @@ final class FeedViewModel: ObservableObject {
         ]
     }
 
-     func loadSamplePosts() {
+    func loadSamplePosts() {
         posts = [
             Post(
                 authorName: "Admin",
@@ -160,11 +161,11 @@ final class FeedViewModel: ObservableObject {
         ]
     }
 
-     func setCurrentUserAvatar(_ image: UIImage) {
+    func setCurrentUserAvatar(_ image: UIImage) {
         currentUserAvatarImage = image
     }
 
-     func markNotificationPending(_ pending: Bool = true) {
+    func markNotificationPending(_ pending: Bool = true) {
         hasPendingNotification = pending
     }
 
@@ -187,7 +188,7 @@ final class FeedViewModel: ObservableObject {
     }
 }
 
- enum SearchResult: Identifiable {
+enum SearchResult: Identifiable {
     case post(Post)
     case doctor(Doctor)
     case entry(SymptomEntry)

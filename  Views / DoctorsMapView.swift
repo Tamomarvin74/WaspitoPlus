@@ -3,23 +3,23 @@ import MapKit
 
 struct DoctorsMapView: View {
     @EnvironmentObject var doctorManager: DoctorManager
-    
+    @Binding var selectedDoctor: Doctor?
+
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 4.05, longitude: 9.75),
         span: MKCoordinateSpan(latitudeDelta: 3.5, longitudeDelta: 3.5)
     )
-    
-    @State private var selectedDoctor: Doctor? = nil
-    @State private var showSymptomSheet = false
+
     @State private var patientSymptom = ""
-    
-    @State private var showDoctorInteraction = false
+    @State private var showSymptomSheet = false
+    @State private var showDoctorResponse = false
     @State private var showMedicationSheet = false
-    
+    @State private var pharmacyAlert = false
+
     var body: some View {
         NavigationView {
             ZStack {
-                Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
+                 Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
                     MapAnnotation(coordinate: doctor.coordinate) {
                         DoctorAnnotationView(
                             doctor: doctor,
@@ -35,42 +35,36 @@ struct DoctorsMapView: View {
                 }
                 .ignoresSafeArea()
                 
-                VStack {
+                 VStack {
+                    Spacer()
                     HStack {
                         Spacer()
-                        Button(action: {
-                            region.center = CLLocationCoordinate2D(latitude: 4.05, longitude: 9.75)
-                        }) {
-                            Image(systemName: "location.fill")
-                                .padding(10)
-                                .background(Color.white.opacity(0.9))
-                                .clipShape(Circle())
-                        }
-                        .padding()
+                        Image(systemName: "pills.fill")
+                            .foregroundColor(pharmacyAlert ? .green : .gray)
+                            .padding()
                     }
-                    Spacer()
                 }
             }
             .navigationTitle("Doctors Map")
+            // Symptom input sheet
             .sheet(isPresented: $showSymptomSheet) {
                 if let doctor = selectedDoctor {
                     SymptomInputSheet(
                         doctor: doctor,
                         patientSymptom: $patientSymptom,
                         showSheet: $showSymptomSheet,
-                        showDoctorInteraction: $showDoctorInteraction
+                        showDoctorInteraction: $showDoctorResponse
                     )
                 }
             }
-            .sheet(isPresented: $showDoctorInteraction) {
-                if let doctor = selectedDoctor {
-                    DoctorInteractionSheet(
-                        doctor: doctor,
-                        showSheet: $showDoctorInteraction,
-                        showMedicationSheet: $showMedicationSheet
-                    )
+             .onChange(of: showDoctorResponse) { newValue in
+                if newValue, selectedDoctor != nil {
+                    showDoctorResponse = false
+                    showMedicationSheet = true
+                    pharmacyAlert = true
                 }
             }
+            // Medication delivery sheet
             .sheet(isPresented: $showMedicationSheet) {
                 MedicationDeliverySheet(showSheet: $showMedicationSheet)
             }
@@ -78,12 +72,11 @@ struct DoctorsMapView: View {
     }
 }
 
-// MARK: - Doctor Annotation with glowing pulse
-struct DoctorAnnotationView: View {
+ struct DoctorAnnotationView: View {
     let doctor: Doctor
     let isActive: Bool
     @State private var pulse = false
-    
+
     var body: some View {
         ZStack {
             if isActive {

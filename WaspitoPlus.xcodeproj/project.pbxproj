@@ -15,6 +15,9 @@
 		CE4082912E817D87009A7932 /*  SymptomInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082902E817D87009A7932 /*  SymptomInputSheet.swift */; };
 		CE4082932E817DAF009A7932 /*  DoctorInteractionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082922E817DAF009A7932 /*  DoctorInteractionSheet.swift */; };
 		CE4082952E817DD2009A7932 /*  MedicationDeliverySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082942E817DD2009A7932 /*  MedicationDeliverySheet.swift */; };
+		CE4082972E824CD7009A7932 /*  PharmacyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082962E824CD7009A7932 /*  PharmacyData.swift */; };
+		CE4082992E825276009A7932 /* PharmacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4082982E825276009A7932 /* PharmacyView.swift */; };
+		CE40829B2E825304009A7932 /*  PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40829A2E825304009A7932 /*  PaymentView.swift */; };
 		CE6EE0642E7D0917004A386D /* SymptomEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0632E7D0917004A386D /* SymptomEntry.swift */; };
 		CE6EE0662E7D0B38004A386D /*  DoctorNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */; };
 		CE9ED8962E7C1A210077F77D /*  SymptomEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */; };
@@ -84,6 +87,9 @@
 		CE4082902E817D87009A7932 /*  SymptomInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SymptomInputSheet.swift"; sourceTree = "<group>"; };
 		CE4082922E817DAF009A7932 /*  DoctorInteractionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorInteractionSheet.swift"; sourceTree = "<group>"; };
 		CE4082942E817DD2009A7932 /*  MedicationDeliverySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MedicationDeliverySheet.swift"; sourceTree = "<group>"; };
+		CE4082962E824CD7009A7932 /*  PharmacyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " PharmacyData.swift"; sourceTree = "<group>"; };
+		CE4082982E825276009A7932 /* PharmacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyView.swift; sourceTree = "<group>"; };
+		CE40829A2E825304009A7932 /*  PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " PaymentView.swift"; sourceTree = "<group>"; };
 		CE6EE0632E7D0917004A386D /* SymptomEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomEntry.swift; sourceTree = "<group>"; };
 		CE6EE0652E7D0B38004A386D /*  DoctorNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DoctorNotificationManager.swift"; sourceTree = "<group>"; };
 		CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SymptomEntryModel.swift"; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 				CE6EE0632E7D0917004A386D /* SymptomEntry.swift */,
 				CEE2ED6C2E7D737D004078D6 /*  Doctor.swift */,
 				CEE2ED6E2E7D82C0004078D6 /*  HomePost.swift */,
+				CE4082962E824CD7009A7932 /*  PharmacyData.swift */,
 			);
 			path = " Models ";
 			sourceTree = "<group>";
@@ -283,6 +290,8 @@
 				CE4082902E817D87009A7932 /*  SymptomInputSheet.swift */,
 				CE4082922E817DAF009A7932 /*  DoctorInteractionSheet.swift */,
 				CE4082942E817DD2009A7932 /*  MedicationDeliverySheet.swift */,
+				CE4082982E825276009A7932 /* PharmacyView.swift */,
+				CE40829A2E825304009A7932 /*  PaymentView.swift */,
 			);
 			path = " Views ";
 			sourceTree = "<group>";
@@ -474,6 +483,7 @@
 				CE4082872E80D0E9009A7932 /*  DoctorProfileDetailView.swift in Sources */,
 				CED7D4782E797130009C2F49 /*   SymptomCheckerView.swift in Sources */,
 				CE40828D2E81648B009A7932 /*  DoctorDetailSheet.swift..swift in Sources */,
+				CE4082972E824CD7009A7932 /*  PharmacyData.swift in Sources */,
 				CED7D4AE2E7AC8DC009C2F49 /*  MapMeetingView.swift in Sources */,
 				CE4082932E817DAF009A7932 /*  DoctorInteractionSheet.swift in Sources */,
 				CEF1143D2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift in Sources */,
@@ -482,6 +492,7 @@
 				CE4082852E7F9794009A7932 /*  DoctorManager.swift in Sources */,
 				CED7D4682E796F5B009C2F49 /*   AuthService.swift in Sources */,
 				CEE2ED6F2E7D82C0004078D6 /*  HomePost.swift in Sources */,
+				CE4082992E825276009A7932 /* PharmacyView.swift in Sources */,
 				CED7D4AA2E7AA927009C2F49 /* NotificationService.swift in Sources */,
 				CED7D46F2E796FEF009C2F49 /*   HomeViewModel.swift in Sources */,
 				CED7D43E2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld in Sources */,
@@ -489,6 +500,7 @@
 				CED7D48B2E79A598009C2F49 /* LocalizationManager.swift in Sources */,
 				CED7D47A2E79718B009C2F49 /*   OfflineEntriesView.swift in Sources */,
 				CED7D4712E79702B009C2F49 /*   SymptomCheckerViewModel.swift in Sources */,
+				CE40829B2E825304009A7932 /*  PaymentView.swift in Sources */,
 				CED7D46D2E796FCF009C2F49 /*   AuthViewModel.swift in Sources */,
 				CED7D4B02E7ACA96009C2F49 /* NetworkMonitor.swift in Sources */,
 				CEB95AE02E7D11860064D61B /*  Notification+Extensions.swift in Sources */,

@@ -16,7 +16,7 @@ struct MedicationDeliverySheet: View {
             Text("Medication Delivery")
                 .font(.title2).bold()
             
-            Text("Your medication request has been sent to the pharmacy.")
+            Text("Your medication request has been sent to our pharmacy.")
                 .multilineTextAlignment(.center)
             
             Button("Close") {
