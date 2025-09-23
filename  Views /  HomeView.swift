@@ -127,26 +127,124 @@ struct HomeView: View {
         }
     }
     
-     private var homeTab: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    HStack {
-                        Image(systemName: "magnifyingglass").foregroundColor(.gray)
-                        TextField("Search symptoms, posts, doctors...", text: $feedVM.searchText)
-                            .padding(10)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(10)
+    private func handleSearchTap(_ result: SearchResult) {
+        switch result {
+        case .post(let post):
+             print("Tapped post: \(post.title)")
+        case .doctor(let doctor):
+             print("Tapped doctor: \(doctor.name)")
+        case .entry(let entry):
+             print("Tapped entry: \(entry.title)")
+        }
+    }
+
+    
+    private var searchResultsView: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(feedVM.searchResults) { result in
+                    Button(action: { handleSearchTap(result) }) {
+                        HStack {
+                            switch result {
+                            case .post(let post):
+                                HStack {
+                                    Image(systemName: "doc.text")
+                                    Text(post.title.isEmpty ? String(post.content.prefix(50)) + "..." : post.title)
+                                        .lineLimit(1)
+                                }
+                            case .doctor(let doc):
+                                HStack {
+                                    Image(systemName: "stethoscope")
+                                    Text(doc.name)
+                                        .lineLimit(1)
+                                }
+                            case .entry(let entry):
+                                HStack {
+                                    Image(systemName: "pencil")
+                                    Text(entry.title)
+                                        .lineLimit(1)
+                                }
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                     }
-                    .padding(.horizontal)
-                    
-                    profileAndPostMenu
-                    onlineDoctorsSection
-                    postsAndSearchSection
-                    
-                    Spacer(minLength: 30)
+                    .foregroundColor(.primary)
+
+                    Divider()
                 }
-                .padding(.top)
+            }
+            .background(Color(.systemBackground))
+            .cornerRadius(10)
+            .shadow(radius: 4)
+            .padding(.horizontal)
+        }
+        .frame(maxHeight: 250)
+    }
+
+    private var homeTab: some View {
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                 HStack {
+                    Image(systemName: "magnifyingglass").foregroundColor(.gray)
+                    TextField("Search symptoms, posts, doctors...", text: $feedVM.searchText)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                        .onChange(of: feedVM.searchText) { _ in
+                            feedVM.performSearch(doctors: doctorManager.doctors)
+                        }
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                if !feedVM.searchResults.isEmpty && !feedVM.searchText.isEmpty {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach(feedVM.searchResults) { result in
+                                Button(action: {
+                                    handleSearchTap(result)
+                                }) {
+                                    HStack {
+                                        switch result {
+                                        case .post(let post):
+                                            Image(systemName: "doc.text")
+                                            Text(post.title.isEmpty ? post.content.prefix(50) + "..." : post.title)
+                                                .lineLimit(1)
+                                        case .doctor(let doc):
+                                            Image(systemName: "stethoscope")
+                                            Text(doc.name)
+                                        case .entry(let entry):
+                                            Image(systemName: "pencil")
+                                            Text(entry.title)
+                                        }
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                }
+                                .foregroundColor(.primary)
+                                Divider()
+                            }
+                        }
+                        .background(Color(.systemBackground))
+                        .cornerRadius(10)
+                        .shadow(radius: 4)
+                        .padding(.horizontal)
+                    }
+                    .frame(maxHeight: 250)
+                }
+
+                 ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        profileAndPostMenu
+                        onlineDoctorsSection
+                        postsAndSearchSection
+                        
+                        Spacer(minLength: 30)
+                    }
+                    .padding(.top)
+                }
             }
             .background(Color(.systemBackground))
             .navigationBarTitleDisplayMode(.inline)
@@ -166,7 +264,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
      private var profileAndPostMenu: some View {
         HStack(spacing: 12) {
             PhotosPicker(selection: $avatarPickerItem, matching: .images, photoLibrary: .shared()) {
