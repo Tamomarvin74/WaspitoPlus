@@ -3,6 +3,7 @@ import MapKit
 
 struct DoctorsMapView: View {
     @EnvironmentObject var doctorManager: DoctorManager
+    @EnvironmentObject var feedVM: FeedViewModel
     @Binding var selectedDoctor: Doctor?
 
     @State private var region = MKCoordinateRegion(
@@ -19,7 +20,7 @@ struct DoctorsMapView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                 Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
+                Map(coordinateRegion: $region, annotationItems: doctorManager.onlineDoctors) { doctor in
                     MapAnnotation(coordinate: doctor.coordinate) {
                         DoctorAnnotationView(
                             doctor: doctor,
@@ -34,8 +35,8 @@ struct DoctorsMapView: View {
                     }
                 }
                 .ignoresSafeArea()
-                
-                 VStack {
+
+                VStack {
                     Spacer()
                     HStack {
                         Spacer()
@@ -46,8 +47,7 @@ struct DoctorsMapView: View {
                 }
             }
             .navigationTitle("Doctors Map")
-            // Symptom input sheet
-            .sheet(isPresented: $showSymptomSheet) {
+             .sheet(isPresented: $showSymptomSheet) {
                 if let doctor = selectedDoctor {
                     SymptomInputSheet(
                         doctor: doctor,
@@ -64,8 +64,10 @@ struct DoctorsMapView: View {
                     pharmacyAlert = true
                 }
             }
-            // Medication delivery sheet
-            .sheet(isPresented: $showMedicationSheet) {
+             .sheet(isPresented: $showMedicationSheet, onDismiss: {
+                pharmacyAlert = true
+                feedVM.showPharmacyNotificationDot = true // updates HomeView
+            }) {
                 MedicationDeliverySheet(showSheet: $showMedicationSheet)
             }
         }
@@ -91,7 +93,7 @@ struct DoctorsMapView: View {
                         }
                     }
             }
-            
+
             if let avatar = doctor.avatar {
                 Image(uiImage: avatar)
                     .resizable()
@@ -124,3 +126,10 @@ struct DoctorsMapView: View {
     }
 }
 
+struct DoctorsMapView_Previews: PreviewProvider {
+    static var previews: some View {
+        DoctorsMapView(selectedDoctor: .constant(nil))
+            .environmentObject(FeedViewModel())
+            .environmentObject(DoctorManager())
+    }
+}

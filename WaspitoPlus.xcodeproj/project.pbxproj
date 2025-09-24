@@ -27,6 +27,11 @@
 		CE9ED8B72E7C43B60077F77D /*  FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */; };
 		CE9ED8B82E7C43B60077F77D /*  FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */; };
 		CEB95AE02E7D11860064D61B /*  Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB95ADF2E7D11860064D61B /*  Notification+Extensions.swift */; };
+		CED4C3452E82EE0300E0C124 /*  DeliveryConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4C3442E82EE0300E0C124 /*  DeliveryConfirmationView.swift */; };
+		CED4C3472E82FAAA00E0C124 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4C3462E82FAAA00E0C124 /* LottieView.swift */; };
+		CED4C34A2E836F3B00E0C124 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CED4C3492E836F3B00E0C124 /* Lottie */; };
+		CED4C34E2E83772000E0C124 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CED4C34D2E83772000E0C124 /* Lottie */; };
+		CED4C3502E83772000E0C124 /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = CED4C34F2E83772000E0C124 /* Lottie-Dynamic */; };
 		CED7D43E2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CED7D43C2E796DF7009C2F49 /* WaspitoPlus.xcdatamodeld */; };
 		CED7D4622E796E56009C2F49 /*  User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4612E796E56009C2F49 /*  User.swift */; };
 		CED7D4662E796F16009C2F49 /*   LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7D4652E796F16009C2F49 /*   LocalDataService.swift */; };
@@ -95,6 +100,8 @@
 		CE9ED8952E7C1A210077F77D /*  SymptomEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SymptomEntryModel.swift"; sourceTree = "<group>"; };
 		CE9ED8B52E7C43B60077F77D /*  FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " FeedViewModel.swift"; sourceTree = "<group>"; };
 		CEB95ADF2E7D11860064D61B /*  Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " Notification+Extensions.swift"; sourceTree = "<group>"; };
+		CED4C3442E82EE0300E0C124 /*  DeliveryConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " DeliveryConfirmationView.swift"; sourceTree = "<group>"; };
+		CED4C3462E82FAAA00E0C124 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaspitoPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED7D43D2E796DF7009C2F49 /* WaspitoPlus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WaspitoPlus.xcdatamodel; sourceTree = "<group>"; };
 		CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaspitoPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +173,7 @@
 				CED7D4842E797E42009C2F49 /* FirebaseCore in Frameworks */,
 				CED7D4822E797E35009C2F49 /* FirebaseAuth in Frameworks */,
 				CED7D4862E797E62009C2F49 /* FirebaseFirestore in Frameworks */,
+				CED4C34A2E836F3B00E0C124 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED4C34E2E83772000E0C124 /* Lottie in Frameworks */,
+				CED4C3502E83772000E0C124 /* Lottie-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +302,8 @@
 				CE4082942E817DD2009A7932 /*  MedicationDeliverySheet.swift */,
 				CE4082982E825276009A7932 /* PharmacyView.swift */,
 				CE40829A2E825304009A7932 /*  PaymentView.swift */,
+				CED4C3442E82EE0300E0C124 /*  DeliveryConfirmationView.swift */,
+				CED4C3462E82FAAA00E0C124 /* LottieView.swift */,
 			);
 			path = " Views ";
 			sourceTree = "<group>";
@@ -336,6 +348,7 @@
 				CED7D4812E797E35009C2F49 /* FirebaseAuth */,
 				CED7D4832E797E42009C2F49 /* FirebaseCore */,
 				CED7D4852E797E62009C2F49 /* FirebaseFirestore */,
+				CED4C3492E836F3B00E0C124 /* Lottie */,
 			);
 			productName = WaspitoPlus;
 			productReference = CED7D4312E796DF5009C2F49 /* WaspitoPlus.app */;
@@ -359,6 +372,8 @@
 			);
 			name = WaspitoPlusTests;
 			packageProductDependencies = (
+				CED4C34D2E83772000E0C124 /* Lottie */,
+				CED4C34F2E83772000E0C124 /* Lottie-Dynamic */,
 			);
 			productName = WaspitoPlusTests;
 			productReference = CED7D4432E796DF8009C2F49 /* WaspitoPlusTests.xctest */;
@@ -421,6 +436,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CED4C3482E836E6F00E0C124 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CED7D4322E796DF5009C2F49 /* Products */;
@@ -486,6 +502,7 @@
 				CE4082972E824CD7009A7932 /*  PharmacyData.swift in Sources */,
 				CED7D4AE2E7AC8DC009C2F49 /*  MapMeetingView.swift in Sources */,
 				CE4082932E817DAF009A7932 /*  DoctorInteractionSheet.swift in Sources */,
+				CED4C3452E82EE0300E0C124 /*  DeliveryConfirmationView.swift in Sources */,
 				CEF1143D2E7BEFFD0013CB41 /*  OfflineEntriesViewModel.swift in Sources */,
 				CEF114352E7BBC310013CB41 /*  EditablePostView.swift in Sources */,
 				CE40828B2E815809009A7932 /*  DoctorsMapView.swift in Sources */,
@@ -506,6 +523,7 @@
 				CEB95AE02E7D11860064D61B /*  Notification+Extensions.swift in Sources */,
 				CED7D4AC2E7AB8C2009C2F49 /* LocationService.swift in Sources */,
 				CEF2F2E22E7C521900BA75AB /* Post.swift in Sources */,
+				CED4C3472E82FAAA00E0C124 /* LottieView.swift in Sources */,
 				CED7D4662E796F16009C2F49 /*   LocalDataService.swift in Sources */,
 				CE9ED8B62E7C43B60077F77D /*  FeedViewModel.swift in Sources */,
 			);
@@ -832,6 +850,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CED4C3482E836E6F00E0C124 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -843,6 +869,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CED4C3492E836F3B00E0C124 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED4C3482E836E6F00E0C124 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		CED4C34D2E83772000E0C124 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED4C3482E836E6F00E0C124 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		CED4C34F2E83772000E0C124 /* Lottie-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED4C3482E836E6F00E0C124 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = "Lottie-Dynamic";
+		};
 		CED7D4812E797E35009C2F49 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CED7D47F2E797D44009C2F49 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

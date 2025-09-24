@@ -24,6 +24,10 @@ final class FeedViewModel: ObservableObject {
     @Published var notifications: [String] = []
 
     @Published var searchResults: [SearchResult] = []
+    
+    @Published var showPharmacyNotificationDot: Bool = false
+    @Published var hasConsultedDoctor: Bool = false
+
 
     init() {
         loadSamplePosts()
